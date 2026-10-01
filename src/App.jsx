@@ -6,6 +6,7 @@ import Stack from './sections/Stack'
 import Projects from './sections/Projects'
 import Experience from './sections/Experience'
 import Certs from './sections/Certs'
+import Contact from './sections/Contact'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Projects />
         <Experience />
         <Certs />
+        <Contact />
       </main>
       <Footer />
     </>

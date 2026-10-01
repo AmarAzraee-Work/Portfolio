@@ -50,4 +50,11 @@ describe('App', () => {
     const verifyLinks = screen.queryAllByRole('link', { name: /verify/ })
     expect(verifyLinks).toHaveLength(certs.filter((c) => c.verifyUrl).length)
   })
+
+  it('renders the contact section with direct links', () => {
+    render(<App />)
+    expect(screen.getByRole('heading', { level: 2, name: '~/contact' })).toBeInTheDocument()
+    expect(screen.getAllByRole('link', { name: profile.email }).length).toBeGreaterThan(0)
+    expect(screen.getByRole('link', { name: /linkedin/ })).toHaveAttribute('href', profile.linkedin)
+  })
 })
