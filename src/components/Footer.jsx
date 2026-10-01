@@ -13,7 +13,7 @@ export default function Footer() {
           {profile.siteRepoUrl && (
             <>
               {' · '}
-              <ExternalLink href={profile.siteRepoUrl} className="text-fg hover:text-accent">
+              <ExternalLink href={profile.siteRepoUrl} className="text-fg underline underline-offset-2 hover:text-accent">
                 view source
               </ExternalLink>
             </>
