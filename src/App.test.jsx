@@ -3,6 +3,8 @@ import App from './App'
 import { profile } from './data/profile'
 import { stack } from './data/stack'
 import { projects } from './data/projects'
+import { experience } from './data/experience'
+import { certs } from './data/certs'
 
 describe('App', () => {
   it('renders the hero with the name as the only h1', () => {
@@ -33,5 +35,19 @@ describe('App', () => {
     for (const project of projects) {
       expect(screen.getByRole('heading', { level: 3, name: project.title })).toBeInTheDocument()
     }
+  })
+
+  it('renders experience and certs from data', () => {
+    render(<App />)
+    expect(screen.getByRole('heading', { level: 2, name: '~/experience' })).toBeInTheDocument()
+    for (const job of experience) {
+      expect(screen.getByText(job.points[0])).toBeInTheDocument()
+    }
+    expect(screen.getByRole('heading', { level: 2, name: '~/certs' })).toBeInTheDocument()
+    for (const cert of certs) {
+      expect(screen.getByText(cert.name)).toBeInTheDocument()
+    }
+    const verifyLinks = screen.queryAllByRole('link', { name: /verify/ })
+    expect(verifyLinks).toHaveLength(certs.filter((c) => c.verifyUrl).length)
   })
 })

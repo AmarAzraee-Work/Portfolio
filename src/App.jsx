@@ -4,6 +4,8 @@ import Hero from './sections/Hero'
 import About from './sections/About'
 import Stack from './sections/Stack'
 import Projects from './sections/Projects'
+import Experience from './sections/Experience'
+import Certs from './sections/Certs'
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
         <About />
         <Stack />
         <Projects />
+        <Experience />
+        <Certs />
       </main>
       <Footer />
     </>
