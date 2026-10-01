@@ -111,7 +111,7 @@ These shapes are the contract that the Phase 2 Laravel API will also return.
 
 ```js
 // profile.js
-{ name, role, tagline, about: [paragraph, ...], email, github, linkedin, cvUrl }
+{ name, role, tagline, about: [paragraph, ...], email, github, linkedin, cvUrl, siteRepoUrl? }
 
 // projects.js — array
 { title, description, image, tech: [string], liveUrl, githubUrl,
@@ -150,7 +150,8 @@ Optional fields (`liveUrl`, `githubUrl`, `verifyUrl`, `image`) may be missing; t
 - Keyboard-only navigation check.
 - Lighthouse (mobile): Performance and Accessibility ≥ 90.
 - `npm run build` succeeds with no errors.
-- No unit tests for Phase 1: the components are presentational with no logic worth unit testing.
+- Vitest + Testing Library unit tests only where there is logic or risk: data shape contract, project sorting and image/link fallbacks, contact form validation and send states, mobile menu, reduced-motion reveal, plus an App smoke test that every section renders.
+- `npm run check:content` fails if any `TODO` placeholder, `public/cv.pdf` or a referenced screenshot is missing; it must pass before deploying.
 
 ## 11. Content Amar Needs to Provide
 
@@ -161,6 +162,6 @@ Optional fields (`liveUrl`, `githubUrl`, `verifyUrl`, `image`) may be missing; t
 - Internship details: company, role, period, points, tech
 - Certifications: name, issuer, year, verify link
 - Stack list by category
-- Formspree form ID (Amar creates the free account)
+- Formspree form ID (Amar creates the free account), supplied via the `VITE_FORMSPREE_ID` environment variable; if unset, the contact section shows the email instead of the form
 
 Placeholder content clearly marked `TODO: replace` may be used during development, but the site is not deployed until real content replaces it.
