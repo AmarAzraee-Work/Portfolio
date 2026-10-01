@@ -1,6 +1,8 @@
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Hero from './sections/Hero'
+import About from './sections/About'
+import Stack from './sections/Stack'
 
 export default function App() {
   return (
@@ -14,6 +16,8 @@ export default function App() {
       <Navbar />
       <main id="main">
         <Hero />
+        <About />
+        <Stack />
       </main>
       <Footer />
     </>
