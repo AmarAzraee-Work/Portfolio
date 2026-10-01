@@ -21,7 +21,7 @@ function Field({ label, name, type = 'text', multiline = false, value, error, on
         onChange={onChange}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="mt-1.5 w-full rounded border border-line bg-bg px-3 py-2 text-heading focus:border-accent"
+        className="mt-1.5 w-full rounded border border-muted bg-bg px-3 py-2 text-heading focus:border-accent"
       />
       {error && (
         <p id={errorId} className="mt-1 text-sm text-red-400">

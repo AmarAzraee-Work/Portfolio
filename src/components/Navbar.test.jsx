@@ -24,4 +24,10 @@ describe('Navbar', () => {
     await user.click(menu.querySelector('a[href="#projects"]'))
     expect(container.querySelector('#mobile-menu')).toBeNull()
   })
+
+  it('keeps the resume link visible on mobile without opening the menu', () => {
+    render(<Navbar />)
+    const resumeLinks = screen.getAllByRole('link', { name: 'resume' })
+    expect(resumeLinks.some((link) => !link.closest('.hidden'))).toBe(true)
+  })
 })

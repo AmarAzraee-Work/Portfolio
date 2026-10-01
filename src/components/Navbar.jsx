@@ -44,17 +44,28 @@ export default function Navbar() {
           </li>
         </ul>
 
-        <button
-          type="button"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          className="font-mono text-sm text-heading md:hidden"
-        >
-          <span aria-hidden="true">[</span>
-          {open ? 'close' : 'menu'}
-          <span aria-hidden="true">]</span>
-        </button>
+        <div className="flex items-center gap-4 font-mono text-sm md:hidden">
+          <a
+            href={profile.cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={close}
+            className="rounded border border-accent px-2.5 py-1 text-accent"
+          >
+            resume
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            className="text-heading"
+          >
+            <span aria-hidden="true">[</span>
+            {open ? 'close' : 'menu'}
+            <span aria-hidden="true">]</span>
+          </button>
+        </div>
       </nav>
 
       {open && (
@@ -67,17 +78,6 @@ export default function Navbar() {
               </a>
             </li>
           ))}
-          <li>
-            <a
-              href={profile.cvUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={close}
-              className="block py-2 text-accent"
-            >
-              resume
-            </a>
-          </li>
         </ul>
       )}
     </header>

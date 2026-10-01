@@ -58,4 +58,11 @@ describe('ContactForm', () => {
     expect(screen.getByRole('link', { name: EMAIL })).toBeInTheDocument()
     expect(screen.getByLabelText('message')).toHaveValue('Hello there')
   })
+
+  it('gives inputs a border that meets 3:1 contrast against the page', () => {
+    render(<ContactForm formId="abc123" fallbackEmail={EMAIL} />)
+    for (const label of ['name', 'email', 'message']) {
+      expect(screen.getByLabelText(label)).toHaveClass('border-muted')
+    }
+  })
 })

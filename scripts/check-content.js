@@ -2,6 +2,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { projects } from '../src/data/projects.js'
+import { isPlaceholder } from './placeholder.js'
 
 const problems = []
 
@@ -9,7 +10,7 @@ function scanForTodo(path) {
   readFileSync(path, 'utf8')
     .split('\n')
     .forEach((line, index) => {
-      if (/todo/i.test(line)) problems.push(`${path}:${index + 1}  ${line.trim()}`)
+      if (isPlaceholder(line)) problems.push(`${path}:${index + 1}  ${line.trim()}`)
     })
 }
 
