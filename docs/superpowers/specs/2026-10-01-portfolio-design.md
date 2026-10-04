@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-01
 **Owner:** Amar
-**Status:** Draft for review
+**Status:** Implemented (Phase 1). Sections 4–9 superseded by `2026-10-05-portfolio-redesign-docker-design.md`.
 
 ## 1. Purpose
 
