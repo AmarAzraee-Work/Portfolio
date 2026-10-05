@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import ProjectCard from './ProjectCard'
 import ProjectModal from './ProjectModal'
@@ -100,5 +100,16 @@ describe('ProjectModal', () => {
     expect(document.documentElement.style.overflow).toBe('')
     expect(opener).toHaveFocus()
     opener.remove()
+  })
+
+  it('keeps page-scrolling keys inside the dialog', () => {
+    setup()
+    const dialog = screen.getByRole('dialog')
+    dialog.scrollBy = vi.fn()
+    for (const key of ['PageDown', 'PageUp', 'Home', 'End', 'ArrowDown', 'ArrowUp']) {
+      const notPrevented = fireEvent.keyDown(screen.getByRole('button', { name: 'Close' }), { key })
+      expect(notPrevented).toBe(false)
+    }
+    expect(dialog.scrollBy).toHaveBeenCalled()
   })
 })

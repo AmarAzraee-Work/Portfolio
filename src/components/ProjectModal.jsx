@@ -57,6 +57,15 @@ export default function ProjectModal({ project, onClose, returnFocusTo }) {
 
   useEffect(() => {
     const onKey = (event) => {
+      // Keys that would scroll the page behind the dialog scroll the dialog instead.
+      const page = { PageDown: 0.8, PageUp: -0.8, ArrowDown: 0.1, ArrowUp: -0.1, Home: -Infinity, End: Infinity }[event.key]
+      if (page !== undefined) {
+        event.preventDefault()
+        const dialog = dialogRef.current
+        const top = Number.isFinite(page) ? dialog.clientHeight * page : page * 1e6
+        dialog.scrollBy?.({ top })
+        return
+      }
       if (event.key === 'Escape') onClose()
       else if (event.key === 'ArrowRight') step(1)
       else if (event.key === 'ArrowLeft') step(-1)
