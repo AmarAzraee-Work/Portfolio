@@ -27,6 +27,11 @@ a:hover {
   box-shadow: 0 0 0 1px var(--color-accent), 0 16px 44px color-mix(in srgb, var(--color-accent) 20%, transparent);
 }
 
+button.mini-face:hover {
+  background: color-mix(in srgb, var(--color-accent-800) 92%, transparent) !important;
+  border-color: var(--color-accent-300) !important;
+}
+
 /* ---- Phase 1 (removed in Task 8) ---- */
 
 @theme {
