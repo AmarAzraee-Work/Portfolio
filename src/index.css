@@ -32,52 +32,6 @@ button.mini-face:hover {
   border-color: var(--color-accent-300) !important;
 }
 
-/* ---- Phase 1 (removed in Task 8) ---- */
-
-@theme {
-  --color-bg: #0b0d0e;
-  --color-surface: #121517;
-  --color-line: #23282b;
-  --color-fg: #c9d1d6;
-  --color-heading: #f1f5f7;
-  --color-muted: #8a959c;
-  --color-accent: #4ade80;
-
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* keeps section headings visible below the sticky navbar */
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-fg);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-}
-
-::selection {
-  background: var(--color-accent);
-  color: var(--color-bg);
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-.cursor {
-  animation: blink 1s step-end infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .cursor { animation: none; }
+.contact-row:hover {
+  box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-sm) !important;
 }

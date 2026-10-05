@@ -1,60 +1,99 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import App from './App'
-import { profile } from './data/legacy/profile'
-import { stack } from './data/legacy/stack'
-import { projects } from './data/legacy/projects'
-import { experience } from './data/legacy/experience'
-import { certs } from './data/legacy/certs'
+import { profile } from './data/profile'
 
+function stubReducedMotion(reduce) {
+  vi.stubGlobal('matchMedia', (query) => ({
+    matches: reduce && query.includes('reduce'),
+    media: query,
+    addEventListener() {},
+    removeEventListener() {},
+  }))
+}
+
+// In cube mode only the front face is visible; the others are visibility:hidden by design, so queries
+// for content on other faces pass { hidden: true }.
 describe('App', () => {
-  it('renders the hero with the name as the only h1', () => {
+  beforeEach(() => {
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => {})
+    window.innerWidth = 1280
+    window.innerHeight = 800
+    stubReducedMotion(false)
+  })
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    vi.restoreAllMocks()
+  })
+
+  it('has one h1 with the headline', () => {
     render(<App />)
     const h1s = screen.getAllByRole('heading', { level: 1 })
     expect(h1s).toHaveLength(1)
-    expect(h1s[0]).toHaveTextContent(profile.name)
+    expect(h1s[0]).toHaveAccessibleName("Hi, I'm Amar. I build for the web, end to end.")
   })
 
-  it('has a skip link to the main content', () => {
+  it('has the four face headings in order', () => {
     render(<App />)
-    expect(screen.getByRole('link', { name: 'Skip to content' })).toHaveAttribute('href', '#main')
+    // Each heading has a screen-reader copy (sr-only) and an animated copy (aria-hidden); read the former.
+    const names = screen.getAllByRole('heading', { level: 2, hidden: true }).map((h) => h.querySelector('.sr-only').textContent)
+    expect(names).toEqual([
+      "Things I've built",
+      'I like making things work, and look good doing it.',
+      "Where I've been",
+      "Let's build something together.",
+    ])
   })
 
-  it('renders the about and stack sections from data', () => {
+  it('has the header and the section indicator', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { level: 2, name: '~/about' })).toBeInTheDocument()
-    expect(screen.getByText(profile.about[0])).toBeInTheDocument()
-    expect(screen.getByRole('heading', { level: 2, name: '~/stack' })).toBeInTheDocument()
-    for (const group of stack) {
-      expect(screen.getByRole('heading', { level: 3, name: group.category })).toBeInTheDocument()
-    }
+    expect(screen.getByRole('button', { name: 'Say hello' })).toBeInTheDocument()
+    expect(within(screen.getByRole('navigation', { name: 'Sections' })).getAllByRole('button')).toHaveLength(5)
   })
 
-  it('renders every project card', () => {
-    render(<App />)
-    expect(screen.getByRole('heading', { level: 2, name: '~/projects' })).toBeInTheDocument()
-    for (const project of projects) {
-      expect(screen.getByRole('heading', { level: 3, name: project.title })).toBeInTheDocument()
-    }
+  it('opens and closes a project from its card', async () => {
+    const user = userEvent.setup()
+    const { container } = render(<App />)
+    await user.click(container.querySelector('[aria-label="Sales Page & Admin Panel — view screens"]'))
+    expect(screen.getByRole('dialog', { name: 'Sales Page & Admin Panel' })).toBeInTheDocument()
+    await user.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog')).toBeNull()
   })
 
-  it('renders experience and certs from data', () => {
-    render(<App />)
-    expect(screen.getByRole('heading', { level: 2, name: '~/experience' })).toBeInTheDocument()
-    for (const job of experience) {
-      expect(screen.getByText(job.points[0])).toBeInTheDocument()
-    }
-    expect(screen.getByRole('heading', { level: 2, name: '~/certs' })).toBeInTheDocument()
-    for (const cert of certs) {
-      expect(screen.getByText(cert.name)).toBeInTheDocument()
-    }
-    const verifyLinks = screen.queryAllByRole('link', { name: /verify/ })
-    expect(verifyLinks).toHaveLength(certs.filter((c) => c.verifyUrl).length)
+  it('links Download CV to the PDF', () => {
+    const { container } = render(<App />)
+    const cv = container.querySelector('a[download]')
+    expect(cv).toHaveTextContent('Download CV')
+    expect(cv).toHaveAttribute('href', profile.cvUrl)
+    expect(cv).toHaveAttribute('download')
   })
 
-  it('renders the contact section with direct links', () => {
+  it('opens WhatsApp in a new tab', () => {
+    const { container } = render(<App />)
+    const link = container.querySelector('a[href^="https://wa.me/"]')
+    expect(link).toHaveTextContent('WhatsApp')
+    expect(link).toHaveAttribute('href', `https://wa.me/${profile.whatsapp.number}`)
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+  })
+
+  it('shows every face in flat mode under reduced motion', () => {
+    stubReducedMotion(true)
+    const { container } = render(<App />)
+    const faces = container.querySelectorAll('[data-face]')
+    expect(faces).toHaveLength(5)
+    for (const face of faces) expect(face.style.visibility).not.toBe('hidden')
+  })
+
+  it('shows only the front face in cube mode', () => {
+    const { container } = render(<App />)
+    const faces = [...container.querySelectorAll('[data-face]')]
+    expect(faces[0].style.visibility).toBe('visible')
+    for (const face of faces.slice(1)) expect(face.style.visibility).toBe('hidden')
+  })
+
+  it('has no sound control', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { level: 2, name: '~/contact' })).toBeInTheDocument()
-    expect(screen.getAllByRole('link', { name: profile.email }).length).toBeGreaterThan(0)
-    expect(screen.getByRole('link', { name: /linkedin/ })).toHaveAttribute('href', profile.linkedin)
+    expect(screen.queryByRole('button', { name: /sound/i })).toBeNull()
   })
 })

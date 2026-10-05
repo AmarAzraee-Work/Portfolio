@@ -17,6 +17,8 @@ export default function Header({ name, labels, active, wide, onNavigate, onConta
         zIndex: 10,
         gap: 'clamp(14px,2.4vw,28px)',
         padding: '18px clamp(20px,6vw,96px)',
+        minHeight: '72px', // the removed 36px sound button used to set this height
+        boxSizing: 'border-box',
         background: 'linear-gradient(to bottom, color-mix(in srgb, var(--color-bg) 85%, transparent), transparent)',
       }}
     >
