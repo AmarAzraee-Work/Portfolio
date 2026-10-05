@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-05
 **Owner:** Amar
-**Status:** Draft for review
+**Status:** Superseded by `2026-10-06-portfolio-nocturne-cube-docker-design.md` (not built).
 **Supersedes:** sections 4–9 of `2026-10-01-portfolio-design.md` (visual design, page structure, code structure, data shapes, edge cases, accessibility). Sections 1–3 (purpose, scope, stack) and the learning goal still apply unless changed below.
 
 ## 1. Why

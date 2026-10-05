@@ -1,5 +1,7 @@
 # Portfolio Redesign + Docker Implementation Plan
 
+> **Superseded (not executed):** replaced by the Nocturne cube design — see `docs/superpowers/specs/2026-10-06-portfolio-nocturne-cube-docker-design.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Rebuild the portfolio UI to match the Claude Design handoff (bento hero + product showcase), keep content in `src/data/`, and add Docker dev + production (Nginx) setups.
