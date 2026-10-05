@@ -1,6 +1,6 @@
 # Portfolio Redesign + Docker Implementation Plan
 
-> **Superseded (not executed):** replaced by the Nocturne cube design — see `docs/superpowers/specs/2026-10-06-portfolio-nocturne-cube-docker-design.md`.
+> **Superseded (not executed):** replaced by the Nocturne cube design — spec `docs/superpowers/specs/2026-10-06-portfolio-nocturne-cube-docker-design.md`, plan `2026-10-06-portfolio-nocturne-cube-docker.md`.
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
