@@ -16,6 +16,12 @@ a:hover {
   color: var(--color-accent-300);
 }
 
+/* Form error text. Nocturne has no error colour (the design relied on browser bubbles), so one soft red is
+   added for validation messages only; it always comes with an icon and words. */
+:root {
+  --color-danger: #f2a7a7;
+}
+
 /* Hover states the design wrote as style-hover. */
 .project-card:hover {
   box-shadow: 0 0 0 1px var(--color-accent), 0 16px 44px color-mix(in srgb, var(--color-accent) 20%, transparent);

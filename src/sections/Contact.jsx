@@ -30,7 +30,7 @@ export default function Contact() {
             </li>
           </ul>
         </div>
-        <ContactForm formId={import.meta.env.VITE_FORMSPREE_ID} fallbackEmail={profile.email} />
+        <ContactForm endpoint={import.meta.env.VITE_CONTACT_ENDPOINT} email={profile.email} />
       </div>
     </Section>
   )
