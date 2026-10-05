@@ -16,6 +16,11 @@ a:hover {
   color: var(--color-accent-300);
 }
 
+/* Hover states the design wrote as style-hover. */
+.project-card:hover {
+  box-shadow: 0 0 0 1px var(--color-accent), 0 16px 44px color-mix(in srgb, var(--color-accent) 20%, transparent);
+}
+
 /* ---- Phase 1 (removed in Task 8) ---- */
 
 @theme {
