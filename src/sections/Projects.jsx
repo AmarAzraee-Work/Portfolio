@@ -1,4 +1,4 @@
-import { projects } from '../data/projects'
+import { projects } from '../data/legacy/projects'
 import { sortProjects } from '../lib/projects'
 import Section from '../components/Section'
 import ProjectCard from '../components/ProjectCard'

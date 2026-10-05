@@ -1,4 +1,4 @@
-import { profile } from '../data/profile'
+import { profile } from '../data/legacy/profile'
 import Section from '../components/Section'
 import ExternalLink from '../components/ExternalLink'
 import ContactForm from '../components/ContactForm'

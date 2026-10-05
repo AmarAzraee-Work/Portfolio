@@ -1,4 +1,4 @@
-import { profile } from '../data/profile'
+import { profile } from '../data/legacy/profile'
 import ExternalLink from '../components/ExternalLink'
 import { btnPrimary, btnSecondary } from '../components/buttonStyles'
 

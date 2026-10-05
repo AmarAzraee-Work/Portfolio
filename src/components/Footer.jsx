@@ -1,4 +1,4 @@
-import { profile } from '../data/profile'
+import { profile } from '../data/legacy/profile'
 import ExternalLink from './ExternalLink'
 
 export default function Footer() {

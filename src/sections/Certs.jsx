@@ -1,4 +1,4 @@
-import { certs } from '../data/certs'
+import { certs } from '../data/legacy/certs'
 import Section from '../components/Section'
 import ExternalLink from '../components/ExternalLink'
 

@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import App from './App'
-import { profile } from './data/profile'
-import { stack } from './data/stack'
-import { projects } from './data/projects'
-import { experience } from './data/experience'
-import { certs } from './data/certs'
+import { profile } from './data/legacy/profile'
+import { stack } from './data/legacy/stack'
+import { projects } from './data/legacy/projects'
+import { experience } from './data/legacy/experience'
+import { certs } from './data/legacy/certs'
 
 describe('App', () => {
   it('renders the hero with the name as the only h1', () => {

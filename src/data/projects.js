@@ -1,31 +1,43 @@
-// TODO: replace — these example entries show every variant (featured, missing image, missing links).
-// Put screenshots in public/projects/ and reference them as '/projects/<file>.png'.
+// Each screen id has a mock-up in src/screens/. Add `image: '/images/<file>.png'` to a screen
+// to show a real screenshot instead.
 export const projects = [
   {
-    title: 'Example Production App',
-    description: 'TODO: replace — what problem it solves and who uses it, in one or two sentences.',
-    image: '/projects/example-app.png',
-    tech: ['react', 'laravel', 'mysql'],
-    liveUrl: 'https://example.com',
-    githubUrl: 'https://github.com/TODO-replace/example-app',
-    status: 'in production',
-    featured: true,
+    id: 'timetable',
+    title: 'Staff Timetable System',
+    stack: 'Laravel · MySQL · Blade',
+    role: 'Design and full-stack build',
+    short: 'Plan weekly shifts, track hours and handle leave in one place.',
+    desc: 'An internal tool that replaced a shared spreadsheet. Managers drag staff into shifts, see who is over or under hours, and approve leave requests. Staff get their own timetable on their phone.',
+    tags: ['Laravel', 'MySQL', 'Role-based access', 'Responsive'],
+    screens: [
+      { id: 'tt-week', label: 'Weekly timetable' },
+      { id: 'tt-staff', label: 'Staff directory' },
+    ],
   },
   {
-    title: 'Example Client Project',
-    description: 'TODO: replace — a live project whose code is private, so it has no GitHub link.',
-    image: '/projects/example-client.png',
-    tech: ['laravel', 'blade', 'mysql'],
-    liveUrl: 'https://example.org',
-    status: 'in production',
-    featured: false,
+    id: 'sales',
+    title: 'Sales Page & Admin Panel',
+    stack: 'Laravel · React',
+    role: 'Full-stack build and copy',
+    short: 'A product sales page that sends orders to WhatsApp, plus an admin to track them.',
+    desc: 'A single-product sales page built to convert on mobile. Orders go straight to WhatsApp, and the admin panel shows revenue, order status and best-selling products.',
+    tags: ['Laravel API', 'React', 'WhatsApp ordering', 'Charts'],
+    screens: [
+      { id: 'sales-landing', label: 'Sales page' },
+      { id: 'sales-admin', label: 'Admin dashboard' },
+    ],
   },
   {
-    title: 'Example Demo Project',
-    description: 'TODO: replace — a project without a live link or screenshot, to show the fallbacks.',
-    tech: ['react', 'tailwind'],
-    githubUrl: 'https://github.com/TODO-replace/example-demo',
-    status: 'demo',
-    featured: false,
+    id: 'resto',
+    title: 'Restaurant Menu & Landing',
+    stack: 'HTML · CSS · JavaScript',
+    role: 'Design and front end',
+    short: 'A demo restaurant site with reservations and a digital table menu.',
+    desc: 'A demo for restaurants: a landing page with opening hours and table booking, and a QR digital menu where diners add dishes and send the order to the kitchen.',
+    tags: ['HTML', 'CSS', 'Vanilla JS', 'QR menu'],
+    screens: [
+      { id: 'resto-landing', label: 'Landing page' },
+      { id: 'resto-menu', label: 'Digital menu' },
+    ],
   },
 ]

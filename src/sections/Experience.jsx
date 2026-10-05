@@ -1,4 +1,4 @@
-import { experience } from '../data/experience'
+import { experience } from '../data/legacy/experience'
 import Section from '../components/Section'
 import Tag from '../components/Tag'
 
