@@ -1,4 +1,22 @@
-@import "tailwindcss";
+/* Tailwind without preflight: the design has no CSS reset, Nocturne supplies the base styles. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./styles/nocturne.css";
+
+/* Page CSS from the Portfolio v2 mockup. */
+html,
+body {
+  margin: 0;
+  background: var(--color-bg);
+}
+a {
+  color: var(--color-accent);
+}
+a:hover {
+  color: var(--color-accent-300);
+}
+
+/* ---- Phase 1 (removed in Task 8) ---- */
 
 @theme {
   --color-bg: #0b0d0e;
