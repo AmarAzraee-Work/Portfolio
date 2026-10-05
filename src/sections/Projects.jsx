@@ -1,7 +1,7 @@
 import { projects } from '../data/legacy/projects'
 import { sortProjects } from '../lib/projects'
 import Section from '../components/Section'
-import ProjectCard from '../components/ProjectCard'
+import ProjectCard from '../components/legacy/ProjectCard'
 
 export default function Projects() {
   return (
