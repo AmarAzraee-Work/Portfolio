@@ -130,7 +130,20 @@ describe('useScramble', () => {
     expect(screen.getByRole('heading', { name: "Where I've been" })).toBe(heading)
 
     act(() => vi.advanceTimersByTime(2000))
-    expect(heading.querySelector('[aria-hidden="true"]').textContent).toBe("Where I've been")
+    expect(heading.querySelector('[data-scramble-text]').textContent).toBe("Where I've been")
+  })
+})
+
+describe('Scramble', () => {
+  it('reserves the space of the real text so scrambling never shifts the layout', () => {
+    const { container } = render(<Scramble text="Hi, I'm Amar." />)
+    const sizer = container.querySelector('[data-scramble-sizer]')
+    const animated = container.querySelector('[data-scramble-text]')
+    expect(sizer).toHaveTextContent("Hi, I'm Amar.")
+    expect(sizer).toHaveStyle({ visibility: 'hidden' })
+    expect(animated).toHaveStyle({ position: 'absolute' })
+    expect(animated).toHaveAttribute('aria-hidden', 'true')
+    expect(container.firstElementChild).toHaveStyle({ position: 'relative', display: 'inline-block' })
   })
 })
 

@@ -6,10 +6,17 @@ import { scrambleDuration, scrambleFrame } from '../lib/scramble'
  * only the visible copy is scrambled, so they never hear random glyphs.
  */
 export function Scramble({ text, style }) {
+  // The hidden sizer keeps the real text's size, so the random glyphs (different widths) never change
+  // the heading's height and push the content below around (layout shift).
   return (
-    <span data-scramble="" style={style}>
+    <span data-scramble="" style={{ position: 'relative', display: 'inline-block', ...style }}>
       <span className="sr-only">{text}</span>
-      <span aria-hidden="true">{text}</span>
+      <span data-scramble-sizer="" aria-hidden="true" style={{ visibility: 'hidden' }}>
+        {text}
+      </span>
+      <span data-scramble-text="" aria-hidden="true" style={{ position: 'absolute', inset: 0 }}>
+        {text}
+      </span>
     </span>
   )
 }
@@ -23,7 +30,7 @@ export function useScramble(containerRef, trigger, enabled) {
     const container = containerRef.current
     if (!enabled || !container) return undefined
 
-    const targets = [...container.querySelectorAll('[data-scramble] > [aria-hidden="true"]')]
+    const targets = [...container.querySelectorAll('[data-scramble-text]')]
     const rafs = new Map()
 
     const run = () => {
