@@ -347,7 +347,9 @@ Deleted in Task 8: every Phase 1 file under `src/components/`, `src/sections/`, 
 
 ---
 
-### Task 10: Docker — dev and production images
+### Task 10: Docker — dev and production images (CANCELLED)
+
+> **Cancelled 2026-10-06:** Amar dropped Docker (no admin / Phase 2; Vercel builds the static site). Files written in c9b1591 were removed.
 
 **Why:** Docker packages the app with its own Node or Nginx so it runs the same anywhere. Multi-stage builds keep the production image tiny; the dev container mounts your code for live reload. Phase 2 will add Laravel and MySQL to the same compose file.
 

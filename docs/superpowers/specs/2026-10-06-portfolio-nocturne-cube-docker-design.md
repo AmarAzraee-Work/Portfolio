@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-06
 **Owner:** Amar
-**Status:** Draft for review
+**Status:** Implemented. Docker (§9) dropped on 2026-10-06 — Amar decided there will be no admin/Phase 2, and the static site deploys on Vercel without containers.
 **Supersedes:** `2026-10-05-portfolio-redesign-docker-design.md` and its plan (bento design — not built). Sections 1–3 of `2026-10-01-portfolio-design.md` (purpose, audience, stack, learning goal) still apply unless changed here.
 
 ## 1. Goal
