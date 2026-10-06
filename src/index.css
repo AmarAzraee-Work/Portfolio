@@ -1,49 +1,42 @@
-@import "tailwindcss";
+/* Tailwind without preflight: the design has no CSS reset, Nocturne supplies the base styles. */
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./styles/nocturne.css";
 
-@theme {
-  --color-bg: #0b0d0e;
-  --color-surface: #121517;
-  --color-line: #23282b;
-  --color-fg: #c9d1d6;
-  --color-heading: #f1f5f7;
-  --color-muted: #8a959c;
-  --color-accent: #4ade80;
-
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* keeps section headings visible below the sticky navbar */
-}
-
+/* Page CSS from the Portfolio v2 mockup. */
+html,
 body {
-  background-color: var(--color-bg);
-  color: var(--color-fg);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  background: var(--color-bg);
+}
+a {
+  color: var(--color-accent);
+}
+a:hover {
+  color: var(--color-accent-300);
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+/* Form error text. Nocturne has no error colour (the design relied on browser bubbles), so one soft red is
+   added for validation messages only; it always comes with an icon and words. */
+:root {
+  --color-danger: #f2a7a7;
 }
 
-::selection {
-  background: var(--color-accent);
-  color: var(--color-bg);
+/* An invalid field's border matches its error message. */
+.input[aria-invalid='true'] {
+  border-color: var(--color-danger);
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+/* Hover states the design wrote as style-hover. */
+.project-card:hover {
+  box-shadow: 0 0 0 1px var(--color-accent), 0 16px 44px color-mix(in srgb, var(--color-accent) 20%, transparent);
 }
 
-.cursor {
-  animation: blink 1s step-end infinite;
+button.mini-face:hover {
+  background: color-mix(in srgb, var(--color-accent-800) 92%, transparent) !important;
+  border-color: var(--color-accent-300) !important;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .cursor { animation: none; }
+.contact-row:hover {
+  box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-sm) !important;
 }

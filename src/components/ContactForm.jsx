@@ -1,30 +1,52 @@
-import { useState } from 'react'
-import { validateContact, sendContact } from '../lib/contact'
-import { btnPrimary } from './buttonStyles'
+import { useEffect, useRef, useState } from 'react'
+import { CheckCircle, EnvelopeSimple, PaperPlaneTilt, WarningCircle } from '@phosphor-icons/react'
+import { sendContact, validateContact } from '../lib/contact'
 
-const EMPTY = { name: '', email: '', message: '', _gotcha: '' }
+const EMPTY = { name: '', email: '', message: '' }
+const FIELD_ORDER = ['name', 'email', 'message']
 
-function Field({ label, name, type = 'text', multiline = false, value, error, onChange }) {
+// Keyframes and timings from the design's sendForm(): the form folds away while a small envelope cube flies off.
+const FOLD = [
+  [
+    { transform: 'none', opacity: 1 },
+    { transform: 'rotateX(-80deg) scale(.55)', opacity: 0.7, offset: 0.6 },
+    { transform: 'rotateX(-90deg) scale(.12)', opacity: 0 },
+  ],
+  { duration: 650, easing: 'cubic-bezier(.6,0,.4,1)', fill: 'forwards' },
+]
+const FLY = [
+  [
+    { opacity: 0, transform: 'scale(.2) rotateX(0deg) rotateY(0deg)' },
+    { opacity: 1, transform: 'scale(1.1) rotateX(200deg) rotateY(160deg)', offset: 0.4 },
+    { opacity: 1, transform: 'translate(0px,0px) scale(1) rotateX(330deg) rotateY(300deg)', offset: 0.65 },
+    { opacity: 0, transform: 'translate(260px,-300px) scale(.3) rotateX(540deg) rotateY(500deg)' },
+  ],
+  { duration: 1500, delay: 380, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' },
+]
+
+const cubeFace = {
+  position: 'absolute',
+  inset: 0,
+  border: '1px solid var(--color-accent-400)',
+  borderRadius: '6px',
+  background: 'color-mix(in srgb, var(--color-accent-800) 88%, transparent)',
+}
+const FACE_TRANSFORMS = ['rotateY(90deg)', 'rotateY(180deg)', 'rotateY(-90deg)', 'rotateX(90deg)', 'rotateX(-90deg)']
+
+function EmailLink({ email }) {
+  return <a href={`mailto:${email}`}>{email}</a>
+}
+
+function Field({ id, label, error, multiline, ...input }) {
   const Control = multiline ? 'textarea' : 'input'
-  const errorId = `${name}-error`
+  const errorId = `${id}-error`
   return (
-    <div>
-      <label htmlFor={name} className="block font-mono text-xs text-muted">
-        {label}
-      </label>
-      <Control
-        id={name}
-        name={name}
-        type={multiline ? undefined : type}
-        rows={multiline ? 5 : undefined}
-        value={value}
-        onChange={onChange}
-        aria-invalid={error ? 'true' : undefined}
-        aria-describedby={error ? errorId : undefined}
-        className="mt-1.5 w-full rounded border border-muted bg-bg px-3 py-2 text-heading focus:border-accent"
-      />
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
+      <Control id={id} className="input" aria-invalid={error ? 'true' : undefined} aria-describedby={error ? errorId : undefined} {...input} />
       {error && (
-        <p id={errorId} className="mt-1 text-sm text-red-400">
+        <p id={errorId} style={{ display: 'flex', gap: '6px', alignItems: 'center', margin: '6px 0 0', fontSize: '12px', color: 'var(--color-danger)' }}>
+          <WarningCircle aria-hidden="true" style={{ flex: 'none', fontSize: '14px' }} />
           {error}
         </p>
       )}
@@ -32,78 +54,208 @@ function Field({ label, name, type = 'text', multiline = false, value, error, on
   )
 }
 
-function EmailLink({ email }) {
-  return (
-    <a href={`mailto:${email}`} className="text-accent hover:underline">
-      {email}
-    </a>
-  )
-}
-
-export default function ContactForm({ formId, fallbackEmail }) {
+export default function ContactForm({ endpoint, email, reducedMotion = false }) {
   const [values, setValues] = useState(EMPTY)
   const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [status, setStatus] = useState('idle') // idle | sending | sent
+  const [failed, setFailed] = useState(false)
+  const [sentName, setSentName] = useState('')
+  const [animating, setAnimating] = useState(false) // fold animation still playing
+  const focusName = useRef(false)
+  const sentTitleRef = useRef(null)
+  const busy = useRef(false)
+  const formRef = useRef(null)
+  const foldRef = useRef(null)
+  const sentRef = useRef(null)
+  const running = useRef([])
 
-  if (!formId) {
+  const canAnimate = !reducedMotion && typeof Element.prototype.animate === 'function'
+
+  // Keep keyboard and screen-reader users oriented: focus the confirmation, or the first field after a reset.
+  useEffect(() => {
+    if (status === 'sent') sentTitleRef.current?.focus()
+    if (status === 'idle' && focusName.current) {
+      focusName.current = false
+      document.getElementById('contact-name')?.focus()
+    }
+  }, [status])
+
+  useEffect(() => {
+    if (status === 'sent' && canAnimate && sentRef.current) {
+      sentRef.current.animate(
+        [
+          { opacity: 0, transform: 'translateY(14px) scale(.97)' },
+          { opacity: 1, transform: 'none' },
+        ],
+        { duration: 450, easing: 'cubic-bezier(.2,.8,.2,1)' },
+      )
+    }
+  }, [status, canAnimate])
+
+  if (!endpoint) {
     return (
-      <p className="leading-relaxed">
-        Email me directly at <EmailLink email={fallbackEmail} />.
-      </p>
+      <div className="card elev-md" style={{ padding: '22px', gap: '10px' }}>
+        <span style={{ fontSize: '18px', fontWeight: 500 }}>Send a message</span>
+        <p style={{ margin: 0, color: 'var(--color-neutral-300)' }}>
+          Email me at <EmailLink email={email} />.
+        </p>
+      </div>
     )
   }
 
-  function handleChange(event) {
-    const { name, value } = event.target
-    setValues((current) => ({ ...current, [name]: value }))
+  const change = (field) => (event) => {
+    const value = event.target.value
+    setValues((v) => ({ ...v, [field]: value }))
+    if (errors[field]) setErrors(({ [field]: _removed, ...rest }) => rest)
   }
 
-  async function handleSubmit(event) {
+  const cancelAnimations = () => {
+    running.current.forEach((animation) => animation.cancel())
+    running.current = []
+  }
+
+  async function submit(event) {
     event.preventDefault()
+    if (busy.current) return // one request at a time, even on a fast double click
+
     const found = validateContact(values)
     setErrors(found)
-    if (Object.keys(found).length > 0) return
+    const first = FIELD_ORDER.find((field) => found[field])
+    if (first) {
+      document.getElementById(`contact-${first}`)?.focus()
+      return
+    }
 
+    busy.current = true
+    setFailed(false)
+    setSentName(values.name.trim().split(' ')[0] || 'friend')
     setStatus('sending')
+
+    const request = sendContact(endpoint, values)
+    let animationDone = Promise.resolve()
+    if (canAnimate && formRef.current && foldRef.current) {
+      const fold = formRef.current.animate(...FOLD)
+      const fly = foldRef.current.animate(...FLY)
+      running.current = [fold, fly]
+      setAnimating(true)
+      animationDone = new Promise((resolve) => {
+        fly.onfinish = () => {
+          setAnimating(false)
+          resolve()
+        }
+      })
+    }
+
     try {
-      await sendContact(formId, values)
-      setValues(EMPTY)
-      setStatus('success')
+      await Promise.all([request, animationDone])
+      running.current = []
+      setStatus('sent')
     } catch {
-      setStatus('error')
+      cancelAnimations() // brings the form back exactly as it was
+      setAnimating(false)
+      setStatus('idle')
+      setFailed(true)
+    } finally {
+      busy.current = false
     }
   }
 
+  function sendAnother() {
+    cancelAnimations()
+    foldRef.current?.getAnimations?.().forEach((animation) => animation.cancel())
+    setValues(EMPTY)
+    focusName.current = true
+    setStatus('idle')
+  }
+
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4">
-      <Field label="name" name="name" value={values.name} error={errors.name} onChange={handleChange} />
-      <Field label="email" name="email" type="email" value={values.email} error={errors.email} onChange={handleChange} />
-      <Field label="message" name="message" multiline value={values.message} error={errors.message} onChange={handleChange} />
-
-      {/* Honeypot: hidden from people, bots fill it in, Formspree drops those submissions. */}
-      <input
-        type="text"
-        name="_gotcha"
-        value={values._gotcha}
-        onChange={handleChange}
-        tabIndex={-1}
-        autoComplete="off"
+    <div style={{ position: 'relative', perspective: '1000px', minHeight: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      {status !== 'sent' && (
+        <form ref={formRef} onSubmit={submit} noValidate className="card elev-md" style={{ padding: '22px', gap: '14px', transformOrigin: '50% 0%' }}>
+          <span style={{ fontSize: '18px', fontWeight: 500 }}>Send a message</span>
+          <Field id="contact-name" name="name" label="Your name" placeholder="Ali bin Abu" autoComplete="name" value={values.name} onChange={change('name')} error={errors.name} />
+          <Field
+            id="contact-email"
+            name="email"
+            type="email"
+            label="Email"
+            placeholder="you@email.com"
+            autoComplete="email"
+            value={values.email}
+            onChange={change('email')}
+            error={errors.email}
+          />
+          <Field
+            id="contact-message"
+            name="message"
+            label="Message"
+            placeholder="Tell me about your project"
+            multiline
+            value={values.message}
+            onChange={change('message')}
+            error={errors.message}
+          />
+          {failed && (
+            <p role="alert" style={{ display: 'flex', gap: '6px', alignItems: 'center', margin: 0, fontSize: '13px', color: 'var(--color-danger)' }}>
+              <WarningCircle aria-hidden="true" style={{ flex: 'none', fontSize: '16px' }} />
+              <span>
+                Something went wrong. Please email me at <EmailLink email={email} />.
+              </span>
+            </p>
+          )}
+          <button className="btn btn-primary" type="submit" aria-disabled={status === 'sending' ? 'true' : undefined} style={{ padding: '11px 18px', alignSelf: 'flex-start' }}>
+            <PaperPlaneTilt aria-hidden="true" />
+            Send message
+          </button>
+        </form>
+      )}
+      {status === 'sent' && (
+        <div ref={sentRef} role="status" className="card elev-md" style={{ padding: '28px 22px', gap: '12px', alignItems: 'flex-start' }}>
+          <CheckCircle aria-hidden="true" style={{ fontSize: '38px', color: 'var(--color-accent)' }} />
+          <span ref={sentTitleRef} tabIndex={-1} style={{ fontSize: '22px', fontWeight: 500, outline: 'none' }}>
+            Message sent
+          </span>
+          <p style={{ margin: 0, color: 'var(--color-neutral-300)' }}>Thanks, {sentName}. It&apos;s on its way, and I&apos;ll get back to you soon.</p>
+          <button className="btn btn-secondary" onClick={sendAnother} style={{ marginTop: '6px' }}>
+            Send another
+          </button>
+        </div>
+      )}
+      {/* Shown once the envelope has flown but the request is still on its way (slow connections). */}
+      {status === 'sending' && !animating && (
+        <p
+          role="status"
+          style={
+            canAnimate
+              ? { position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', margin: 0, color: 'var(--color-neutral-300)' }
+              : { margin: '12px 0 0', color: 'var(--color-neutral-300)' }
+          }
+        >
+          Sending…
+        </p>
+      )}
+      <div
+        ref={foldRef}
         aria-hidden="true"
-        style={{ display: 'none' }}
-      />
-
-      <button type="submit" disabled={status === 'sending'} className={`${btnPrimary} disabled:opacity-60`}>
-        {status === 'sending' ? 'sending…' : 'send message'}
-      </button>
-
-      <div role="status" aria-live="polite" className="min-h-6 text-sm">
-        {status === 'success' && <p className="text-accent">Message sent. I&apos;ll get back to you soon.</p>}
-        {status === 'error' && (
-          <p>
-            Something went wrong. Please email me directly at <EmailLink email={fallbackEmail} />.
-          </p>
-        )}
+        style={{
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          width: '64px',
+          height: '64px',
+          margin: '-32px 0 0 -32px',
+          transformStyle: 'preserve-3d',
+          opacity: 0,
+          pointerEvents: 'none',
+        }}
+      >
+        <div style={{ ...cubeFace, transform: 'translateZ(32px)', display: 'grid', placeItems: 'center', color: 'var(--color-accent-200)', fontSize: '26px' }}>
+          <EnvelopeSimple />
+        </div>
+        {FACE_TRANSFORMS.map((t) => (
+          <div key={t} style={{ ...cubeFace, transform: `${t} translateZ(32px)` }} />
+        ))}
       </div>
-    </form>
+    </div>
   )
 }

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-e90ae898-d399-4b59-bc76-214012ac6f84/styles.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="_ds/nocturne-e90ae898-d399-4b59-bc76-214012ac6f84/_ds_bundle.js"></script>
+<style>a{color:var(--color-accent)}a:hover{color:var(--color-accent-300)}</style>
+</helmet>
+<sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}">
+<div style="width:1280px;height:800px;overflow:hidden;position:relative;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:14px;line-height:1.45;">
+
+<sc-if value="{{ isTtWeek }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:220px minmax(0,1fr);height:100%;">
+  <aside style="background:var(--color-surface);padding:20px 12px;display:flex;flex-direction:column;gap:2px;">
+    <div style="display:flex;align-items:center;gap:8px;font-weight:500;font-size:16px;padding:0 10px 20px;"><i class="ph ph-calendar-check" style="color:var(--color-accent);font-size:22px;"></i>ShiftDesk</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-md);background:var(--color-accent-900);color:var(--color-accent-200);"><i class="ph ph-calendar-dots"></i>Timetable</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-users"></i>Staff</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-airplane-tilt"></i>Leave requests<span class="tag tag-accent" style="margin-left:auto;padding:1px 7px;">3</span></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-chart-bar"></i>Reports</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-gear-six"></i>Settings</div>
+    <div style="margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--color-accent-800);color:var(--color-accent-100);display:grid;place-items:center;font-size:12px;">SM</div>
+      <div style="display:flex;flex-direction:column;"><span style="font-size:13px;">Sarah M.</span><span style="font-size:11px;color:var(--color-neutral-500);">Manager</span></div>
+    </div>
+  </aside>
+  <main style="padding:24px 28px;display:flex;flex-direction:column;gap:18px;min-width:0;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;flex-direction:column;margin-right:auto;"><span style="font-size:12px;color:var(--color-neutral-500);">Outlet · Bangsar</span><span style="font-size:24px;font-weight:500;">Weekly timetable</span></div>
+      <div style="display:flex;align-items:center;gap:4px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:4px;">
+        <button class="btn btn-icon" style="width:28px;height:28px;"><i class="ph ph-caret-left"></i></button>
+        <span style="font-size:13px;padding:0 8px;">5 – 11 Oct 2026</span>
+        <button class="btn btn-icon" style="width:28px;height:28px;"><i class="ph ph-caret-right"></i></button>
+      </div>
+      <button class="btn btn-secondary"><i class="ph ph-copy"></i>Copy last week</button>
+      <button class="btn btn-primary"><i class="ph ph-paper-plane-tilt"></i>Publish</button>
+    </div>
+    <div style="display:flex;gap:16px;font-size:12px;color:var(--color-neutral-400);">
+      <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:3px;background:var(--color-accent-700);"></span>Morning 08:00–16:00</span>
+      <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:3px;background:var(--color-neutral-700);"></span>Evening 16:00–00:00</span>
+      <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:3px;border:1px dashed var(--color-neutral-600);"></span>Off</span>
+      <span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:3px;border:1px solid var(--color-accent);"></span>Leave</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:grid;grid-template-columns:200px repeat(7,minmax(0,1fr)) 60px;gap:6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);padding:0 0 4px;">
+        <span>Staff</span>
+        <sc-for list="{{ days }}" as="d" hint-placeholder-count="7"><span>{{ d.d }} <span style="color:var(--color-neutral-300);">{{ d.n }}</span></span></sc-for>
+        <span style="text-align:right;">Hrs</span>
+      </div>
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="7">
+        <div style="display:grid;grid-template-columns:200px repeat(7,minmax(0,1fr)) 60px;gap:6px;align-items:stretch;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:30px;height:30px;flex:none;border-radius:50%;background:var(--color-neutral-800);display:grid;place-items:center;font-size:11px;">{{ r.ini }}</div>
+            <div style="display:flex;flex-direction:column;min-width:0;"><span style="font-size:13px;">{{ r.name }}</span><span style="font-size:11px;color:var(--color-neutral-500);">{{ r.role }}</span></div>
+          </div>
+          <sc-for list="{{ r.days }}" as="c" hint-placeholder-count="7">
+            <div style="height:52px;display:flex;">
+              <sc-if value="{{ c.m }}"><div style="flex:1;border-radius:var(--radius-md);background:var(--color-accent-800);color:var(--color-accent-100);padding:7px 9px;display:flex;flex-direction:column;justify-content:center;font-size:12px;"><span>Morning</span><span style="font-size:11px;color:var(--color-accent-300);">08–16</span></div></sc-if>
+              <sc-if value="{{ c.e }}"><div style="flex:1;border-radius:var(--radius-md);background:var(--color-neutral-800);color:var(--color-neutral-100);padding:7px 9px;display:flex;flex-direction:column;justify-content:center;font-size:12px;"><span>Evening</span><span style="font-size:11px;color:var(--color-neutral-400);">16–00</span></div></sc-if>
+              <sc-if value="{{ c.o }}"><div style="flex:1;border-radius:var(--radius-md);border:1px dashed var(--color-neutral-800);color:var(--color-neutral-600);display:grid;place-items:center;font-size:12px;">Off</div></sc-if>
+              <sc-if value="{{ c.l }}"><div style="flex:1;border-radius:var(--radius-md);border:1px solid var(--color-accent-600);color:var(--color-accent-300);display:grid;place-items:center;font-size:12px;">Leave</div></sc-if>
+            </div>
+          </sc-for>
+          <div style="display:flex;align-items:center;justify-content:flex-end;font-size:13px;color:var(--color-neutral-300);">{{ r.hrs }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTtStaff }}">
+<div style="display:grid;grid-template-columns:220px minmax(0,1fr) 300px;height:100%;">
+  <aside style="background:var(--color-surface);padding:20px 12px;display:flex;flex-direction:column;gap:2px;">
+    <div style="display:flex;align-items:center;gap:8px;font-weight:500;font-size:16px;padding:0 10px 20px;"><i class="ph ph-calendar-check" style="color:var(--color-accent);font-size:22px;"></i>ShiftDesk</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-calendar-dots"></i>Timetable</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-md);background:var(--color-accent-900);color:var(--color-accent-200);"><i class="ph ph-users"></i>Staff</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-airplane-tilt"></i>Leave requests<span class="tag tag-accent" style="margin-left:auto;padding:1px 7px;">3</span></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-chart-bar"></i>Reports</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;color:var(--color-neutral-400);"><i class="ph ph-gear-six"></i>Settings</div>
+  </aside>
+  <main style="padding:24px 28px;display:flex;flex-direction:column;gap:18px;min-width:0;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;flex-direction:column;margin-right:auto;"><span style="font-size:12px;color:var(--color-neutral-500);">8 people · 2 on leave</span><span style="font-size:24px;font-weight:500;">Staff</span></div>
+      <div style="position:relative;width:240px;"><i class="ph ph-magnifying-glass" style="position:absolute;left:10px;top:10px;color:var(--color-neutral-500);"></i><input class="input" placeholder="Search staff" style="padding-left:32px;"></div>
+      <button class="btn btn-primary"><i class="ph ph-plus"></i>Add staff</button>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <span class="tag tag-outline">All</span><span class="tag tag-neutral">Front of house</span><span class="tag tag-neutral">Kitchen</span><span class="tag tag-neutral">Management</span>
+    </div>
+    <table class="table">
+      <thead><tr><th>Name</th><th>Department</th><th>Role</th><th>Hours / wk</th><th>Status</th></tr></thead>
+      <tbody>
+        <sc-for list="{{ staffTable }}" as="s" hint-placeholder-count="8">
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:10px;padding:4px 0;"><div style="width:28px;height:28px;border-radius:50%;background:var(--color-neutral-800);display:grid;place-items:center;font-size:11px;">{{ s.ini }}</div>{{ s.name }}</div></td>
+            <td style="color:var(--color-neutral-400);">{{ s.dept }}</td>
+            <td style="color:var(--color-neutral-400);">{{ s.role }}</td>
+            <td>{{ s.hrs }}</td>
+            <td><sc-if value="{{ s.leave }}"><span class="tag tag-outline">On leave</span></sc-if><sc-if value="{{ s.active }}"><span class="tag tag-accent">Active</span></sc-if></td>
+          </tr>
+        </sc-for>
+      </tbody>
+    </table>
+  </main>
+  <aside style="border-left:1px solid var(--color-divider);padding:28px 22px;display:flex;flex-direction:column;gap:18px;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--color-accent-800);color:var(--color-accent-100);display:grid;place-items:center;font-size:18px;">AR</div>
+      <div style="display:flex;flex-direction:column;"><span style="font-size:18px;font-weight:500;">Aisyah Rahman</span><span style="font-size:12px;color:var(--color-neutral-500);">Supervisor · Front of house</span></div>
+    </div>
+    <div style="display:flex;gap:8px;"><button class="btn btn-secondary" style="flex:1;"><i class="ph ph-phone"></i>Call</button><button class="btn btn-secondary" style="flex:1;"><i class="ph ph-chat-circle"></i>Message</button></div>
+    <div class="card elev-sm" style="gap:10px;">
+      <span class="card-kicker">This week</span>
+      <div style="display:flex;align-items:baseline;gap:6px;"><span style="font-size:28px;font-weight:500;">40</span><span style="color:var(--color-neutral-500);">/ 40 hrs</span></div>
+      <div style="height:6px;border-radius:3px;background:var(--color-neutral-800);"><div style="width:100%;height:100%;border-radius:3px;background:var(--color-accent);"></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);">Upcoming shifts</span>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Mon 5 Oct</span><span style="color:var(--color-accent-300);">08:00–16:00</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Tue 6 Oct</span><span style="color:var(--color-accent-300);">08:00–16:00</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>Fri 9 Oct</span><span style="color:var(--color-neutral-300);">16:00–00:00</span></div>
+    </div>
+  </aside>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSalesLanding }}">
+<div style="height:100%;display:flex;flex-direction:column;background:radial-gradient(ellipse at 75% 30%, var(--color-accent-900), var(--color-bg) 60%);">
+  <nav class="nav" style="padding:20px 56px;">
+    <span class="nav-brand" style="display:flex;align-items:center;gap:8px;"><i class="ph ph-coffee-bean" style="color:var(--color-accent);"></i>Kopi Pagi</span>
+    <a href="#">Our beans</a><a href="#">How to brew</a><a href="#">Reviews</a><a href="#">FAQ</a>
+    <button class="btn btn-primary">Order now</button>
+  </nav>
+  <div style="flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;padding:40px 56px 0;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <span class="tag tag-accent" style="align-self:flex-start;">Freshly roasted every Monday</span>
+      <h1 style="font-size:56px;margin:0;text-wrap:balance;">Morning coffee that tastes like home.</h1>
+      <p style="font-size:17px;color:var(--color-neutral-300);margin:0;max-width:460px;">Kampung-style ground coffee, roasted in small batches and delivered to your door in 2–3 days.</p>
+      <div style="display:flex;align-items:baseline;gap:12px;"><span style="font-size:36px;font-weight:500;">RM 39</span><span style="color:var(--color-neutral-500);">/ 500g</span><span style="color:var(--color-neutral-600);text-decoration:line-through;">RM 49</span></div>
+      <div style="display:flex;gap:10px;"><button class="btn btn-primary" style="padding:12px 20px;font-size:15px;"><i class="ph ph-whatsapp-logo"></i>Order on WhatsApp</button><button class="btn btn-secondary" style="padding:12px 20px;font-size:15px;">See reviews</button></div>
+      <div style="display:flex;align-items:center;gap:8px;color:var(--color-neutral-400);font-size:13px;"><span style="color:var(--color-accent);letter-spacing:2px;">★★★★★</span>4.9 from 1,200+ orders</div>
+    </div>
+    <div style="height:440px;border-radius:var(--radius-lg);background:repeating-linear-gradient(135deg, var(--color-neutral-900) 0 12px, var(--color-bg) 12px 24px);display:grid;place-items:center;font:12px ui-monospace,Menlo,monospace;color:var(--color-neutral-500);box-shadow:var(--shadow-sm);">product photo</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:36px 56px 40px;">
+    <div style="display:flex;gap:12px;"><i class="ph ph-fire" style="font-size:24px;color:var(--color-accent);"></i><div><div style="font-weight:500;">Small-batch roast</div><div style="font-size:13px;color:var(--color-neutral-400);">Roasted weekly, never sits on a shelf.</div></div></div>
+    <div style="display:flex;gap:12px;"><i class="ph ph-truck" style="font-size:24px;color:var(--color-accent);"></i><div><div style="font-weight:500;">Free delivery over RM 80</div><div style="font-size:13px;color:var(--color-neutral-400);">Peninsular Malaysia, 2–3 working days.</div></div></div>
+    <div style="display:flex;gap:12px;"><i class="ph ph-arrow-counter-clockwise" style="font-size:24px;color:var(--color-accent);"></i><div><div style="font-weight:500;">Not for you? Refunded.</div><div style="font-size:13px;color:var(--color-neutral-400);">Full refund within 7 days.</div></div></div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSalesAdmin }}">
+<div style="display:grid;grid-template-columns:72px minmax(0,1fr);height:100%;">
+  <aside style="background:var(--color-surface);display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0;">
+    <i class="ph ph-coffee-bean" style="font-size:24px;color:var(--color-accent);padding-bottom:14px;"></i>
+    <button class="btn btn-icon" style="background:var(--color-accent-900);color:var(--color-accent-200);"><i class="ph ph-squares-four" style="font-size:18px;"></i></button>
+    <button class="btn btn-icon" style="color:var(--color-neutral-400);"><i class="ph ph-receipt" style="font-size:18px;"></i></button>
+    <button class="btn btn-icon" style="color:var(--color-neutral-400);"><i class="ph ph-package" style="font-size:18px;"></i></button>
+    <button class="btn btn-icon" style="color:var(--color-neutral-400);"><i class="ph ph-users-three" style="font-size:18px;"></i></button>
+    <button class="btn btn-icon" style="color:var(--color-neutral-400);margin-top:auto;"><i class="ph ph-gear-six" style="font-size:18px;"></i></button>
+  </aside>
+  <main style="padding:24px 28px;display:flex;flex-direction:column;gap:16px;min-width:0;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="display:flex;flex-direction:column;margin-right:auto;"><span style="font-size:12px;color:var(--color-neutral-500);">Kopi Pagi admin</span><span style="font-size:24px;font-weight:500;">Overview</span></div>
+      <div class="seg"><span class="seg-opt">7 days</span><span class="seg-opt" style="color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);">30 days</span><span class="seg-opt">90 days</span></div>
+      <button class="btn btn-secondary"><i class="ph ph-download-simple"></i>Export</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;">
+      <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+        <div class="card elev-sm" style="gap:4px;padding:14px 16px;"><span style="font-size:12px;color:var(--color-neutral-400);">{{ k.l }}</span><span style="font-size:26px;font-weight:500;">{{ k.v }}</span><span style="font-size:12px;color:var(--color-accent-300);">{{ k.d }}</span></div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:12px;">
+      <div class="card elev-sm" style="padding:16px;gap:14px;">
+        <div style="display:flex;justify-content:space-between;"><span style="font-weight:500;">Revenue, last 14 days</span><span style="font-size:12px;color:var(--color-neutral-500);">RM</span></div>
+        <div style="height:170px;display:flex;align-items:flex-end;gap:8px;">
+          <sc-for list="{{ bars }}" as="b" hint-placeholder-count="14"><div style="flex:1;height:{{ b.h }}%;border-radius:4px 4px 0 0;background:linear-gradient(to top, var(--color-accent-800), var(--color-accent-600));"></div></sc-for>
+        </div>
+      </div>
+      <div class="card elev-sm" style="padding:16px;gap:12px;">
+        <span style="font-weight:500;">Top products</span>
+        <div style="display:flex;justify-content:space-between;"><span>Kopi Pagi 500g</span><span style="color:var(--color-neutral-400);">312</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Kopi Pagi 1kg</span><span style="color:var(--color-neutral-400);">96</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Drip bag box (10)</span><span style="color:var(--color-neutral-400);">64</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Gift set</span><span style="color:var(--color-neutral-400);">21</span></div>
+      </div>
+    </div>
+    <div class="card elev-sm" style="padding:12px 16px;gap:4px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-weight:500;">Recent orders</span><button class="btn btn-ghost">View all</button></div>
+      <table class="table">
+        <thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody>
+          <sc-for list="{{ orders }}" as="o" hint-placeholder-count="4">
+            <tr><td style="color:var(--color-neutral-400);">{{ o.id }}</td><td>{{ o.c }}</td><td style="color:var(--color-neutral-400);">{{ o.i }}</td><td>{{ o.t }}</td><td><span class="tag tag-accent">{{ o.s }}</span></td></tr>
+          </sc-for>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRestoLanding }}">
+<div style="height:100%;display:flex;flex-direction:column;">
+  <nav class="nav" style="padding:20px 56px;">
+    <span class="nav-brand" style="display:flex;align-items:center;gap:8px;"><i class="ph ph-moon-stars" style="color:var(--color-accent);"></i>Dapur Senja</span>
+    <a href="#">Menu</a><a href="#">Our story</a><a href="#">Visit</a>
+    <button class="btn btn-primary">Book a table</button>
+  </nav>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;padding:24px 56px 0;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <span style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent);">Malay kitchen · Open late</span>
+      <h1 style="font-size:58px;margin:0;text-wrap:balance;">Home-style cooking, served after sunset.</h1>
+      <p style="font-size:17px;color:var(--color-neutral-300);margin:0;max-width:440px;">Recipes from our grandmother's kitchen, cooked fresh every evening from 5pm until late.</p>
+      <div style="display:flex;gap:10px;"><button class="btn btn-primary" style="padding:12px 20px;font-size:15px;">View menu</button><button class="btn btn-secondary" style="padding:12px 20px;font-size:15px;"><i class="ph ph-calendar-plus"></i>Book a table</button></div>
+    </div>
+    <div style="height:400px;border-radius:var(--radius-lg);background:repeating-linear-gradient(135deg, var(--color-neutral-900) 0 12px, var(--color-bg) 12px 24px);display:grid;place-items:center;font:12px ui-monospace,Menlo,monospace;color:var(--color-neutral-500);box-shadow:var(--shadow-sm);">hero dish photo</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.3fr);gap:20px;padding:36px 56px 40px;margin-top:auto;align-items:end;">
+    <sc-for list="{{ dishes }}" as="d" hint-placeholder-count="3">
+      <div style="display:flex;gap:12px;align-items:center;">
+        <div style="width:64px;height:64px;flex:none;border-radius:var(--radius-md);background:repeating-linear-gradient(135deg, var(--color-neutral-900) 0 8px, var(--color-bg) 8px 16px);box-shadow:var(--shadow-sm);"></div>
+        <div style="display:flex;flex-direction:column;"><span style="font-weight:500;">{{ d.n }}</span><span style="font-size:13px;color:var(--color-accent-300);">{{ d.p }}</span></div>
+      </div>
+    </sc-for>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--color-neutral-300);padding-left:20px;border-left:1px solid var(--color-divider);">
+      <span style="display:flex;gap:8px;align-items:center;"><i class="ph ph-clock" style="color:var(--color-accent);"></i>Daily, 5pm – 1am</span>
+      <span style="display:flex;gap:8px;align-items:center;"><i class="ph ph-map-pin" style="color:var(--color-accent);"></i>Jalan Telawi, Bangsar</span>
+      <span style="display:flex;gap:8px;align-items:center;"><i class="ph ph-phone" style="color:var(--color-accent);"></i>03-1234 5678</span>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRestoMenu }}">
+<div style="height:100%;display:flex;flex-direction:column;">
+  <nav class="nav" style="padding:18px 40px;">
+    <span class="nav-brand" style="display:flex;align-items:center;gap:8px;"><i class="ph ph-moon-stars" style="color:var(--color-accent);"></i>Dapur Senja</span>
+    <span style="font-size:13px;color:var(--color-neutral-400);display:flex;align-items:center;gap:6px;"><i class="ph ph-armchair"></i>Table 12</span>
+  </nav>
+  <div style="flex:1;display:grid;grid-template-columns:200px minmax(0,1fr) 320px;gap:28px;padding:8px 40px 32px;min-height:0;">
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div style="padding:9px 12px;border-radius:var(--radius-md);background:var(--color-accent-900);color:var(--color-accent-200);">Rice dishes</div>
+      <div style="padding:9px 12px;color:var(--color-neutral-400);">Noodles</div>
+      <div style="padding:9px 12px;color:var(--color-neutral-400);">Grill</div>
+      <div style="padding:9px 12px;color:var(--color-neutral-400);">Sides</div>
+      <div style="padding:9px 12px;color:var(--color-neutral-400);">Drinks</div>
+      <div style="padding:9px 12px;color:var(--color-neutral-400);">Desserts</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;min-width:0;">
+      <span style="font-size:24px;font-weight:500;padding-bottom:6px;">Rice dishes</span>
+      <sc-for list="{{ menu }}" as="m" hint-placeholder-count="5">
+        <div style="display:flex;gap:16px;align-items:center;padding:12px;border-radius:var(--radius-md);background:var(--color-surface);">
+          <div style="width:72px;height:72px;flex:none;border-radius:var(--radius-md);background:repeating-linear-gradient(135deg, var(--color-neutral-900) 0 8px, var(--color-bg) 8px 16px);"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-weight:500;">{{ m.n }}</span><span style="font-size:13px;color:var(--color-neutral-400);">{{ m.d }}</span></div>
+          <span style="font-weight:500;">{{ m.p }}</span>
+          <button class="btn btn-primary btn-icon"><i class="ph ph-plus"></i></button>
+        </div>
+      </sc-for>
+    </div>
+    <div class="card elev-md" style="padding:18px;gap:12px;align-self:start;">
+      <span style="font-size:17px;font-weight:500;">Your order</span>
+      <div style="display:flex;justify-content:space-between;"><span>2× Nasi Lemak Berempah</span><span>RM 32.00</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>1× Teh Tarik</span><span>RM 4.50</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>1× Sambal Sotong</span><span>RM 12.00</span></div>
+      <div style="height:1px;background:var(--color-divider);"></div>
+      <div style="display:flex;justify-content:space-between;color:var(--color-neutral-400);font-size:13px;"><span>Service charge 6%</span><span>RM 2.91</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:500;"><span>Total</span><span>RM 51.41</span></div>
+      <button class="btn btn-primary btn-block" style="padding:12px;">Send to kitchen</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ isPhone }}">
+<div style="width:390px;height:844px;overflow:hidden;position:relative;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:14px;line-height:1.45;display:flex;flex-direction:column;">
+  <div style="height:46px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:4px 28px 0;font-size:14px;font-weight:500;"><span>9:41</span><span style="display:flex;gap:5px;font-size:15px;"><i class="ph ph-cell-signal-full"></i><i class="ph ph-wifi-high"></i><i class="ph ph-battery-full"></i></span></div>
+
+  <sc-if value="{{ isTtWeek }}">
+  <div style="flex:1;display:flex;flex-direction:column;min-height:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px 14px;">
+      <div style="display:flex;flex-direction:column;"><span style="font-size:12px;color:var(--color-neutral-500);">5 – 11 Oct 2026</span><span style="font-size:26px;font-weight:500;">Timetable</span></div>
+      <button class="btn btn-primary btn-icon"><i class="ph ph-plus" style="font-size:18px;"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;padding:0 16px 16px;">
+      <sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+        <sc-if value="{{ d.on }}"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:var(--radius-md);box-shadow:inset 0 0 0 1px var(--color-accent);background:var(--color-accent-900);color:var(--color-accent-200);"><span style="font-size:11px;">{{ d.d }}</span><span style="font-size:16px;font-weight:500;">{{ d.n }}</span></div></sc-if>
+        <sc-if value="{{ d.off }}"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;color:var(--color-neutral-400);"><span style="font-size:11px;">{{ d.d }}</span><span style="font-size:16px;font-weight:500;">{{ d.n }}</span></div></sc-if>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px;">
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="7">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--radius-md);background:var(--color-surface);">
+          <div style="width:34px;height:34px;flex:none;border-radius:50%;background:var(--color-neutral-800);display:grid;place-items:center;font-size:12px;">{{ r.ini }}</div>
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0;"><span>{{ r.name }}</span><span style="font-size:12px;color:var(--color-neutral-500);">{{ r.role }}</span></div>
+          <sc-if value="{{ r.tue.m }}"><span class="tag tag-accent">08–16</span></sc-if>
+          <sc-if value="{{ r.tue.e }}"><span class="tag tag-neutral">16–00</span></sc-if>
+          <sc-if value="{{ r.tue.o }}"><span style="font-size:12px;color:var(--color-neutral-600);">Off</span></sc-if>
+          <sc-if value="{{ r.tue.l }}"><span class="tag tag-outline">Leave</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:10px 8px 28px;background:var(--color-surface);font-size:11px;">
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-accent);"><i class="ph ph-calendar-dots" style="font-size:22px;"></i>Timetable</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-users" style="font-size:22px;"></i>Staff</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-airplane-tilt" style="font-size:22px;"></i>Leave</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-user-circle" style="font-size:22px;"></i>Me</span>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isTtStaff }}">
+  <div style="flex:1;display:flex;flex-direction:column;min-height:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px 14px;">
+      <div style="display:flex;flex-direction:column;"><span style="font-size:12px;color:var(--color-neutral-500);">8 people · 2 on leave</span><span style="font-size:26px;font-weight:500;">Staff</span></div>
+      <button class="btn btn-primary btn-icon"><i class="ph ph-user-plus" style="font-size:18px;"></i></button>
+    </div>
+    <div style="position:relative;padding:0 16px 14px;"><i class="ph ph-magnifying-glass" style="position:absolute;left:28px;top:11px;color:var(--color-neutral-500);"></i><input class="input" placeholder="Search staff" style="padding-left:34px;"></div>
+    <div style="display:flex;flex-direction:column;padding:0 16px;">
+      <sc-for list="{{ staffTable }}" as="s" hint-placeholder-count="8">
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 4px;background:linear-gradient(to right, transparent, color-mix(in srgb, var(--color-text) 8%, transparent) 48px, color-mix(in srgb, var(--color-text) 8%, transparent) calc(100% - 48px), transparent) no-repeat bottom / 100% 1px;">
+          <div style="width:34px;height:34px;flex:none;border-radius:50%;background:var(--color-neutral-800);display:grid;place-items:center;font-size:12px;">{{ s.ini }}</div>
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0;"><span>{{ s.name }}</span><span style="font-size:12px;color:var(--color-neutral-500);">{{ s.role }} · {{ s.dept }}</span></div>
+          <sc-if value="{{ s.leave }}"><span class="tag tag-outline">Leave</span></sc-if><sc-if value="{{ s.active }}"><span style="font-size:13px;color:var(--color-neutral-300);">{{ s.hrs }}h</span></sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:10px 8px 28px;background:var(--color-surface);font-size:11px;">
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-calendar-dots" style="font-size:22px;"></i>Timetable</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-accent);"><i class="ph ph-users" style="font-size:22px;"></i>Staff</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-airplane-tilt" style="font-size:22px;"></i>Leave</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-user-circle" style="font-size:22px;"></i>Me</span>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isSalesLanding }}">
+  <div style="flex:1;display:flex;flex-direction:column;min-height:0;background:radial-gradient(ellipse at 80% 15%, var(--color-accent-900), var(--color-bg) 60%);">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 20px;"><span style="display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;"><i class="ph ph-coffee-bean" style="color:var(--color-accent);"></i>Kopi Pagi</span><i class="ph ph-list" style="font-size:22px;"></i></div>
+    <div style="display:flex;flex-direction:column;gap:14px;padding:14px 20px 0;">
+      <span class="tag tag-accent" style="align-self:flex-start;">Freshly roasted every Monday</span>
+      <h1 style="font-size:36px;margin:0;line-height:1.08;">Morning coffee that tastes like home.</h1>
+      <p style="margin:0;color:var(--color-neutral-300);font-size:15px;">Kampung-style ground coffee, roasted in small batches and delivered in 2–3 days.</p>
+      <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-size:30px;font-weight:500;">RM 39</span><span style="color:var(--color-neutral-500);">/ 500g</span><span style="color:var(--color-neutral-600);text-decoration:line-through;">RM 49</span></div>
+      <button class="btn btn-primary" style="padding:13px;font-size:15px;"><i class="ph ph-whatsapp-logo"></i>Order on WhatsApp</button>
+      <div style="display:flex;align-items:center;gap:8px;color:var(--color-neutral-400);font-size:13px;"><span style="color:var(--color-accent);letter-spacing:2px;">★★★★★</span>4.9 from 1,200+ orders</div>
+    </div>
+    <div style="margin:20px 20px 0;flex:1;max-height:250px;border-radius:var(--radius-lg);background:repeating-linear-gradient(135deg, var(--color-neutral-900) 0 12px, var(--color-bg) 12px 24px);display:grid;place-items:center;font:12px ui-monospace,Menlo,monospace;color:var(--color-neutral-500);box-shadow:var(--shadow-sm);">product photo</div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isSalesAdmin }}">
+  <div style="flex:1;display:flex;flex-direction:column;gap:12px;min-height:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px 0;">
+      <div style="display:flex;flex-direction:column;"><span style="font-size:12px;color:var(--color-neutral-500);">Last 30 days</span><span style="font-size:26px;font-weight:500;">Overview</span></div>
+      <button class="btn btn-secondary btn-icon"><i class="ph ph-funnel" style="font-size:18px;"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 16px;">
+      <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+        <div class="card elev-sm" style="gap:2px;padding:12px;"><span style="font-size:12px;color:var(--color-neutral-400);">{{ k.l }}</span><span style="font-size:20px;font-weight:500;">{{ k.v }}</span><span style="font-size:11px;color:var(--color-accent-300);">{{ k.d }}</span></div>
+      </sc-for>
+    </div>
+    <div class="card elev-sm" style="margin:0 16px;padding:14px;gap:12px;">
+      <span style="font-weight:500;">Revenue, last 14 days</span>
+      <div style="height:110px;display:flex;align-items:flex-end;gap:5px;">
+        <sc-for list="{{ bars }}" as="b" hint-placeholder-count="14"><div style="flex:1;height:{{ b.h }}%;border-radius:3px 3px 0 0;background:linear-gradient(to top, var(--color-accent-800), var(--color-accent-600));"></div></sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px;">
+      <span style="font-weight:500;padding:4px 0 0;">Recent orders</span>
+      <sc-for list="{{ orders }}" as="o" hint-placeholder-count="3">
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius-md);background:var(--color-surface);">
+          <div style="flex:1;display:flex;flex-direction:column;min-width:0;"><span>{{ o.c }}</span><span style="font-size:12px;color:var(--color-neutral-500);">{{ o.id }} · {{ o.i }}</span></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;"><span style="font-size:13px;">{{ o.t }}</span><span class="tag tag-accent" style="padding:1px 8px;">{{ o.s }}</span></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:10px 8px 28px;background:var(--color-surface);font-size:11px;">
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-accent);"><i class="ph ph-squares-four" style="font-size:22px;"></i>Overview</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-receipt" style="font-size:22px;"></i>Orders</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-package" style="font-size:22px;"></i>Products</span>
+      <span style="display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--color-neutral-500);"><i class="ph ph-gear-six" style="font-size:22px;"></i>Settings</span>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isRestoLanding }}">
+  <div style="flex:1;display:flex;flex-direction:column;min-height:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 20px;"><span style="display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;"><i class="ph ph-moon-stars" style="color:var(--color-accent);"></i>Dapur Senja</span><i class="ph ph-list" style="font-size:22px;"></i></div>
+    <div style="margin:6px 16px 0;height:250px;border-radius:var(--radius-lg);background:repeating-linear-gradient(135deg, var(--color-neutral-900) 0 12px, var(--color-bg) 12px 24px);display:grid;place-items:center;font:12px ui-monospace,Menlo,monospace;color:var(--color-neutral-500);box-shadow:var(--shadow-sm);">hero dish photo</div>
+    <div style="display:flex;flex-direction:column;gap:12px;padding:20px 20px 0;">
+      <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent);">Malay kitchen · Open late</span>
+      <h1 style="font-size:34px;margin:0;line-height:1.08;">Home-style cooking, served after sunset.</h1>
+      <p style="margin:0;color:var(--color-neutral-300);font-size:15px;">Recipes from our grandmother's kitchen, cooked fresh every evening.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:4px;"><button class="btn btn-primary" style="padding:12px;">View menu</button><button class="btn btn-secondary" style="padding:12px;">Book a table</button></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:20px;font-size:13px;color:var(--color-neutral-300);">
+      <span style="display:flex;gap:8px;align-items:center;"><i class="ph ph-clock" style="color:var(--color-accent);"></i>Daily, 5pm – 1am</span>
+      <span style="display:flex;gap:8px;align-items:center;"><i class="ph ph-map-pin" style="color:var(--color-accent);"></i>Jalan Telawi, Bangsar</span>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isRestoMenu }}">
+  <div style="flex:1;display:flex;flex-direction:column;min-height:0;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 20px;"><span style="display:flex;align-items:center;gap:8px;font-size:17px;font-weight:500;"><i class="ph ph-moon-stars" style="color:var(--color-accent);"></i>Dapur Senja</span><span style="font-size:13px;color:var(--color-neutral-400);display:flex;align-items:center;gap:6px;"><i class="ph ph-armchair"></i>Table 12</span></div>
+    <div style="display:flex;gap:6px;padding:6px 16px 14px;overflow:hidden;white-space:nowrap;">
+      <span class="tag tag-outline" style="padding:6px 12px;">Rice dishes</span><span class="tag tag-neutral" style="padding:6px 12px;">Noodles</span><span class="tag tag-neutral" style="padding:6px 12px;">Grill</span><span class="tag tag-neutral" style="padding:6px 12px;">Sides</span><span class="tag tag-neutral" style="padding:6px 12px;">Drinks</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px;">
+      <sc-for list="{{ menu }}" as="m" hint-placeholder-count="5">
+        <div style="display:flex;gap:12px;align-items:center;padding:10px;border-radius:var(--radius-md);background:var(--color-surface);">
+          <div style="width:60px;height:60px;flex:none;border-radius:var(--radius-md);background:repeating-linear-gradient(135deg, var(--color-neutral-900) 0 8px, var(--color-bg) 8px 16px);"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;"><span style="font-weight:500;">{{ m.n }}</span><span style="font-size:12px;color:var(--color-neutral-400);">{{ m.d }}</span><span style="font-size:13px;color:var(--color-accent-300);">{{ m.p }}</span></div>
+          <button class="btn btn-primary btn-icon" style="width:32px;height:32px;"><i class="ph ph-plus"></i></button>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:auto;padding:12px 16px 30px;background:var(--color-surface);">
+      <button class="btn btn-primary" style="width:100%;padding:13px 16px;justify-content:space-between;"><span>3 items · RM 51.41</span><span style="display:flex;align-items:center;gap:6px;">View order<i class="ph ph-arrow-right"></i></span></button>
+    </div>
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:800},&quot;screen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;tt-week&quot;,&quot;tt-staff&quot;,&quot;sales-landing&quot;,&quot;sales-admin&quot;,&quot;resto-landing&quot;,&quot;resto-menu&quot;],&quot;default&quot;:&quot;tt-week&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;device&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;phone&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.props.screen ?? 'tt-week';
+    const ini = n => n.split(' ').map(w => w[0]).join('').slice(0, 2);
+    const staff = [['Aisyah Rahman','Supervisor','MMMMMOO'],['Daniel Lim','Barista','EEOMMME'],['Kavitha Nair','Cashier','MMOOEEM'],['Faizal Hakim','Kitchen','OEEEEMO'],['Nurul Izzah','Cashier','LLLLLOO'],['Jason Tan','Kitchen','MOMEEOE'],['Hafiz Roslan','Barista','EMMOOEE']];
+    const rows = staff.map(([name, role, p]) => ({ name, role, ini: ini(name),
+      days: [...p].map(c => ({ m: c === 'M', e: c === 'E', o: c === 'O', l: c === 'L' })),
+      hrs: [...p].filter(c => c === 'M' || c === 'E').length * 8 }));
+    rows.forEach(r => { r.tue = r.days[1]; });
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d, i) => ({ d, n: 5 + i, on: i === 1, off: i !== 1 }));
+    const phone = this.props.device === 'phone';
+    const staffTable = [['Aisyah Rahman','Front of house','Supervisor',40],['Daniel Lim','Front of house','Barista',40],['Kavitha Nair','Front of house','Cashier',32],['Faizal Hakim','Kitchen','Cook',40],['Nurul Izzah','Front of house','Cashier',0,1],['Jason Tan','Kitchen','Cook',40],['Hafiz Roslan','Front of house','Barista',40],['Sarah Mokhtar','Management','Manager',45,1]]
+      .map(([name, dept, role, hrs, leave]) => ({ name, dept, role, hrs, ini: ini(name), leave: !!leave, active: !leave }));
+    return {
+      isDesk: !phone, isPhone: phone,
+      isTtWeek: s === 'tt-week', isTtStaff: s === 'tt-staff', isSalesLanding: s === 'sales-landing',
+      isSalesAdmin: s === 'sales-admin', isRestoLanding: s === 'resto-landing', isRestoMenu: s === 'resto-menu',
+      rows, days, staffTable,
+      kpis: [{ l: 'Revenue', v: 'RM 18,420', d: '+12% vs last month' }, { l: 'Orders', v: '472', d: '+8%' }, { l: 'Avg. order', v: 'RM 39.03', d: '+3%' }, { l: 'New customers', v: '138', d: '+21%' }],
+      bars: [42, 55, 48, 62, 58, 71, 66, 52, 60, 78, 74, 85, 80, 92].map(h => ({ h })),
+      orders: [{ id: '#1042', c: 'Siti Aminah', i: '2× Kopi Pagi 500g', t: 'RM 78.00', s: 'Paid' }, { id: '#1041', c: 'Raj Kumar', i: '1× Kopi Pagi 1kg', t: 'RM 72.00', s: 'Shipped' }, { id: '#1040', c: 'Lee Mei Ling', i: '1× Gift set', t: 'RM 95.00', s: 'Pending' }],
+      dishes: [{ n: 'Nasi Lemak Berempah', p: 'RM 16' }, { n: 'Mee Rebus Tulang', p: 'RM 14' }, { n: 'Ikan Bakar Cili', p: 'RM 28' }],
+      menu: [
+        { n: 'Nasi Lemak Berempah', d: 'Spiced fried chicken, sambal, egg, peanuts', p: 'RM 16.00' },
+        { n: 'Nasi Kerabu', d: 'Blue rice, herbs, salted egg, fish crackers', p: 'RM 15.00' },
+        { n: 'Nasi Goreng Kampung', d: 'Fried rice with anchovies and kangkung', p: 'RM 12.00' },
+        { n: 'Nasi Ayam Penyet', d: 'Smashed chicken, tempe, chilli sambal', p: 'RM 17.00' },
+        { n: 'Nasi Daging Salai', d: 'Smoked beef in cili api gravy', p: 'RM 22.00' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/nocturne-e90ae898-d399-4b59-bc76-214012ac6f84/styles.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<script src="_ds/nocturne-e90ae898-d399-4b59-bc76-214012ac6f84/_ds_bundle.js"></script>
+<style>html,body{margin:0;background:var(--color-bg)}a{color:var(--color-accent)}a:hover{color:var(--color-accent-300)}</style>
+</helmet>
+<div style="position:relative;">
+
+  <div ref="{{ stageRef }}" style="position:fixed;inset:0;overflow:hidden;perspective:1600px;background:radial-gradient(ellipse at 50% 45%, var(--color-accent-900), var(--color-bg) 70%);">
+    <div ref="{{ cubeRef }}" style="position:absolute;inset:0;transform-style:preserve-3d;">
+
+      <section data-face="0" data-screen-label="01 Home" style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden auto;background:linear-gradient(165deg, color-mix(in srgb, var(--color-surface) 70%, var(--color-bg)), var(--color-bg) 65%);box-shadow:inset 0 0 0 1px var(--color-divider);">
+        <div style="min-height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(84px,12vh,120px) clamp(20px,6vw,96px) clamp(56px,9vh,88px);max-width:1360px;box-sizing:border-box;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:clamp(32px,5vw,72px);align-items:center;">
+            <div style="display:flex;flex-direction:column;gap:22px;max-width:660px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent);"><span style="width:24px;height:1px;background:var(--color-accent);"></span>Full-stack developer</div>
+              <h1 style="font-size:clamp(44px,7vw,92px);line-height:1.02;letter-spacing:-.035em;margin:0;text-wrap:balance;"><span data-scramble="">Hi, I'm Amar.</span> <span data-scramble="" style="color:var(--color-neutral-500);">I build for the web, end to end.</span></h1>
+              <p style="font-size:clamp(16px,1.35vw,19px);color:var(--color-neutral-300);max-width:540px;margin:0;text-wrap:pretty;">I'm Muhamad Amar, a full-stack developer with a big passion for tech. I take ideas from a rough sketch to a fast, responsive app: the front end, the back end and the server it runs on.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;padding-top:6px;">
+                <button class="btn btn-primary" onClick="{{ goWork }}" style="padding:12px 20px;font-size:15px;">See my work<i class="ph ph-arrow-down"></i></button>
+                <button class="btn btn-secondary" onClick="{{ goContact }}" style="padding:12px 20px;font-size:15px;">Get in touch</button>
+              </div>
+            </div>
+            <sc-if value="{{ showMini }}" hint-placeholder-val="{{ true }}">
+              <div style="height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;">
+                <div style="position:relative;width:200px;height:200px;">
+                  <div style="position:absolute;inset:-90px;border-radius:50%;background:radial-gradient(circle, color-mix(in srgb, var(--color-accent) 26%, transparent), transparent 65%);filter:blur(8px);pointer-events:none;"></div>
+                  <div data-nodrag="" onPointerDown="{{ miniDown }}" style="position:relative;width:200px;height:200px;perspective:900px;cursor:grab;touch-action:none;user-select:none;">
+                    <div ref="{{ miniRef }}" style="position:relative;width:200px;height:200px;transform-style:preserve-3d;">
+                      <div onClick="{{ miniGo1 }}" style="position:absolute;inset:0;transform:translateZ(100px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--color-accent-500);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent-900) 82%, transparent);color:var(--color-accent-200);font-size:15px;font-weight:500;cursor:pointer;transition:background .2s, border-color .2s;" style-hover="background:color-mix(in srgb, var(--color-accent-800) 92%, transparent);border-color:var(--color-accent-300);"><i class="ph ph-briefcase" style="font-size:32px;color:var(--color-accent-300);"></i>Work</div>
+                      <div onClick="{{ miniGo2 }}" style="position:absolute;inset:0;transform:rotateY(90deg) translateZ(100px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--color-accent-500);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent-900) 82%, transparent);color:var(--color-accent-200);font-size:15px;font-weight:500;cursor:pointer;transition:background .2s, border-color .2s;" style-hover="background:color-mix(in srgb, var(--color-accent-800) 92%, transparent);border-color:var(--color-accent-300);"><i class="ph ph-user" style="font-size:32px;color:var(--color-accent-300);"></i>About</div>
+                      <div onClick="{{ miniGo3 }}" style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(100px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--color-accent-500);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent-900) 82%, transparent);color:var(--color-accent-200);font-size:15px;font-weight:500;cursor:pointer;transition:background .2s, border-color .2s;" style-hover="background:color-mix(in srgb, var(--color-accent-800) 92%, transparent);border-color:var(--color-accent-300);"><i class="ph ph-path" style="font-size:32px;color:var(--color-accent-300);"></i>Experience</div>
+                      <div onClick="{{ miniGo4 }}" style="position:absolute;inset:0;transform:rotateY(-90deg) translateZ(100px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--color-accent-500);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent-900) 82%, transparent);color:var(--color-accent-200);font-size:15px;font-weight:500;cursor:pointer;transition:background .2s, border-color .2s;" style-hover="background:color-mix(in srgb, var(--color-accent-800) 92%, transparent);border-color:var(--color-accent-300);"><i class="ph ph-paper-plane-tilt" style="font-size:32px;color:var(--color-accent-300);"></i>Contact</div>
+                      <div onClick="{{ miniGo0 }}" style="position:absolute;inset:0;transform:rotateX(90deg) translateZ(100px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--color-accent-500);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent-900) 82%, transparent);color:var(--color-accent-200);font-size:15px;font-weight:500;cursor:pointer;transition:background .2s, border-color .2s;" style-hover="background:color-mix(in srgb, var(--color-accent-800) 92%, transparent);border-color:var(--color-accent-300);"><i class="ph ph-house" style="font-size:32px;color:var(--color-accent-300);"></i>Home</div>
+                      <div style="position:absolute;inset:0;transform:rotateX(-90deg) translateZ(100px);display:grid;place-items:center;border:1px solid var(--color-accent-500);border-radius:var(--radius-md);background:color-mix(in srgb, var(--color-accent-900) 82%, transparent);font:500 30px ui-monospace,Menlo,monospace;color:var(--color-accent-300);">&lt;/&gt;</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size:12px;color:var(--color-neutral-500);display:flex;align-items:center;gap:6px;"><i class="ph ph-hand-grabbing" style="font-size:16px;color:var(--color-accent);"></i>Drag to spin · tap a face to jump</div>
+              </div>
+            </sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:clamp(32px,7vh,72px);font-size:13px;color:var(--color-neutral-500);"><i class="ph ph-mouse-scroll" style="font-size:20px;color:var(--color-accent);"></i>Scroll or drag to turn the cube</div>
+        </div>
+        <div data-shade="" style="position:absolute;inset:0;background:var(--color-bg);opacity:0;pointer-events:none;"></div>
+      </section>
+
+      <section data-face="1" data-screen-label="02 Work" style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden auto;background:linear-gradient(165deg, color-mix(in srgb, var(--color-surface) 70%, var(--color-bg)), var(--color-bg) 65%);box-shadow:inset 0 0 0 1px var(--color-divider);">
+        <div style="min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,4vh,36px);padding:clamp(84px,12vh,120px) clamp(20px,6vw,96px) clamp(56px,9vh,88px);max-width:1360px;box-sizing:border-box;">
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 40px;">
+            <div style="flex:1 1 320px;display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent);"><span style="width:24px;height:1px;background:var(--color-accent);"></span>Selected work</div>
+              <h2 data-scramble="" style="font-size:clamp(34px,4.6vw,60px);letter-spacing:-.03em;margin:0;">Things I've built</h2>
+            </div>
+            <p style="flex:0 1 380px;margin:0;color:var(--color-neutral-400);text-wrap:pretty;">From an internal staff tool to customer-facing pages. Open one to see the screens.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px;">
+            <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+              <div class="card elev-sm" role="button" tabindex="0" onClick="{{ p.open }}" onPointerMove="{{ cardTilt }}" onPointerLeave="{{ cardReset }}" style="position:relative;cursor:pointer;padding:10px 10px 16px;gap:12px;transform-style:preserve-3d;transition:box-shadow .2s, transform .18s ease-out;" style-hover="box-shadow:0 0 0 1px var(--color-accent), 0 16px 44px color-mix(in srgb, var(--color-accent) 20%, transparent);">
+                <div style="position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--color-accent) 22%, transparent), transparent 55%);opacity:var(--glare,0);transition:opacity .25s;"></div>
+                <div ref="{{ thumbRef }}" data-k="thumb" style="transform:translateZ(22px);position:relative;aspect-ratio:1280/800;overflow:hidden;border-radius:var(--radius-sm);background:var(--color-bg);">
+                  <div style="position:absolute;top:0;left:0;width:1280px;height:800px;transform-origin:0 0;transform:scale({{ thumbScale }});pointer-events:none;">
+                    <dc-import name="ProjectScreen" screen="{{ p.thumb }}" hint-size="1280px,800px"></dc-import>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;padding:0 6px;">
+                  <span class="card-kicker">{{ p.stack }}</span>
+                  <span class="card-title">{{ p.title }}</span>
+                  <p class="card-body" style="text-wrap:pretty;">{{ p.short }}</p>
+                  <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--color-accent);padding-top:4px;">View screens<i class="ph ph-arrow-up-right"></i></span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div data-shade="" style="position:absolute;inset:0;background:var(--color-bg);opacity:0;pointer-events:none;"></div>
+      </section>
+
+      <section data-face="2" data-screen-label="03 About" style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden auto;background:linear-gradient(165deg, color-mix(in srgb, var(--color-surface) 70%, var(--color-bg)), var(--color-bg) 65%);box-shadow:inset 0 0 0 1px var(--color-divider);">
+        <div style="min-height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(84px,12vh,120px) clamp(20px,6vw,96px) clamp(56px,9vh,88px);max-width:1360px;box-sizing:border-box;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,5vw,80px);align-items:start;">
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent);"><span style="width:24px;height:1px;background:var(--color-accent);"></span>About me</div>
+              <h2 data-scramble="" style="font-size:clamp(34px,4.6vw,60px);letter-spacing:-.03em;margin:0;text-wrap:balance;">I like making things work, and look good doing it.</h2>
+              <p style="font-size:16px;color:var(--color-neutral-300);margin:0;text-wrap:pretty;">I started out tinkering with websites and never stopped. Today I work across the whole stack: Laravel and React for apps, WordPress when a client wants to edit content themselves, and Hostinger, Netlify or my own Synology server to ship it.</p>
+              <p style="font-size:16px;color:var(--color-neutral-300);margin:0;text-wrap:pretty;">I also do design and social media, so I care about how a page reads and feels, not only how it runs. Everything I build is responsive, from a small phone to a wide desktop.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:22px;">
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);display:flex;align-items:center;gap:8px;"><i class="ph ph-code" style="color:var(--color-accent);font-size:16px;"></i>Build</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;"><span class="tag tag-accent">Laravel</span><span class="tag tag-accent">React</span><span class="tag tag-accent">JavaScript</span><span class="tag tag-accent">HTML</span><span class="tag tag-accent">CSS</span><span class="tag tag-accent">WordPress</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);display:flex;align-items:center;gap:8px;"><i class="ph ph-git-branch" style="color:var(--color-accent);font-size:16px;"></i>Workflow</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;"><span class="tag tag-neutral">Git</span><span class="tag tag-neutral">GitHub</span><span class="tag tag-neutral">Claude Code</span><span class="tag tag-neutral">ChatGPT</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);display:flex;align-items:center;gap:8px;"><i class="ph ph-cloud-arrow-up" style="color:var(--color-accent);font-size:16px;"></i>Hosting &amp; servers</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;"><span class="tag tag-neutral">Hostinger</span><span class="tag tag-neutral">Netlify</span><span class="tag tag-neutral">Synology</span><span class="tag tag-neutral">Plex</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500);display:flex;align-items:center;gap:8px;"><i class="ph ph-palette" style="color:var(--color-accent);font-size:16px;"></i>Design &amp; content</span>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;"><span class="tag tag-neutral">Canva</span><span class="tag tag-neutral">Adobe</span><span class="tag tag-neutral">Social media management</span><span class="tag tag-outline">Responsive design</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-shade="" style="position:absolute;inset:0;background:var(--color-bg);opacity:0;pointer-events:none;"></div>
+      </section>
+
+      <section data-face="3" data-screen-label="04 Experience" style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden auto;background:linear-gradient(165deg, color-mix(in srgb, var(--color-surface) 70%, var(--color-bg)), var(--color-bg) 65%);box-shadow:inset 0 0 0 1px var(--color-divider);">
+        <div style="min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,4vh,40px);padding:clamp(84px,12vh,120px) clamp(20px,6vw,96px) clamp(56px,9vh,88px);max-width:1100px;box-sizing:border-box;">
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 40px;">
+            <div style="flex:1 1 320px;display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent);"><span style="width:24px;height:1px;background:var(--color-accent);"></span>Experience</div>
+              <h2 data-scramble="" style="font-size:clamp(34px,4.6vw,60px);letter-spacing:-.03em;margin:0;">Where I've been</h2>
+            </div>
+            <button class="btn btn-primary" style="padding:10px 16px;"><i class="ph ph-download-simple"></i>Download CV</button>
+          </div>
+          <div style="display:flex;flex-direction:column;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:6px 32px;padding:20px 0;background:linear-gradient(to right, transparent, var(--color-divider) 48px, var(--color-divider) calc(100% - 48px), transparent) no-repeat top / 100% 1px;">
+              <span style="font-size:14px;color:var(--color-accent-300);">20XX – Present</span>
+              <div style="grid-column:span 2;display:flex;flex-direction:column;gap:4px;"><span style="font-size:19px;font-weight:500;">Role title · Company name</span><span style="color:var(--color-neutral-400);">One line on what you built there and the result it had.</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:6px 32px;padding:20px 0;background:linear-gradient(to right, transparent, var(--color-divider) 48px, var(--color-divider) calc(100% - 48px), transparent) no-repeat top / 100% 1px;">
+              <span style="font-size:14px;color:var(--color-neutral-400);">20XX – 20XX</span>
+              <div style="grid-column:span 2;display:flex;flex-direction:column;gap:4px;"><span style="font-size:19px;font-weight:500;">Role title · Company name</span><span style="color:var(--color-neutral-400);">One line on what you built there and the result it had.</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:6px 32px;padding:20px 0;background:linear-gradient(to right, transparent, var(--color-divider) 48px, var(--color-divider) calc(100% - 48px), transparent) no-repeat top / 100% 1px;">
+              <span style="font-size:14px;color:var(--color-neutral-400);">20XX – 20XX</span>
+              <div style="grid-column:span 2;display:flex;flex-direction:column;gap:4px;"><span style="font-size:19px;font-weight:500;">Freelance web developer</span><span style="color:var(--color-neutral-400);">Sites, sales pages and admin panels for small businesses.</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:6px 32px;padding:20px 0;background:linear-gradient(to right, transparent, var(--color-divider) 48px, var(--color-divider) calc(100% - 48px), transparent) no-repeat top / 100% 1px;">
+              <span style="font-size:14px;color:var(--color-neutral-400);">20XX – 20XX</span>
+              <div style="grid-column:span 2;display:flex;flex-direction:column;gap:4px;"><span style="font-size:19px;font-weight:500;">Qualification · Institution</span><span style="color:var(--color-neutral-400);">Education details go here.</span></div>
+            </div>
+          </div>
+        </div>
+        <div data-shade="" style="position:absolute;inset:0;background:var(--color-bg);opacity:0;pointer-events:none;"></div>
+      </section>
+
+      <section data-face="4" data-screen-label="05 Contact" style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden auto;background:radial-gradient(ellipse at 15% 100%, var(--color-accent-900), transparent 60%), linear-gradient(165deg, color-mix(in srgb, var(--color-surface) 70%, var(--color-bg)), var(--color-bg) 65%);box-shadow:inset 0 0 0 1px var(--color-divider);">
+        <div style="min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:clamp(24px,5vh,48px);padding:clamp(84px,12vh,120px) clamp(20px,6vw,96px) clamp(32px,5vh,48px);max-width:1360px;box-sizing:border-box;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:clamp(32px,5vw,72px);align-items:center;">
+            <div style="display:flex;flex-direction:column;gap:18px;">
+              <div style="display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent);"><span style="width:24px;height:1px;background:var(--color-accent);"></span>Contact</div>
+              <h2 data-scramble="" style="font-size:clamp(38px,5.4vw,76px);line-height:1.03;letter-spacing:-.035em;margin:0;text-wrap:balance;">Let's build something together.</h2>
+              <p style="font-size:clamp(16px,1.35vw,19px);color:var(--color-neutral-300);margin:0;max-width:520px;text-wrap:pretty;">Got a project, a role or just a question? Send me a message. I usually reply within a day.</p>
+              <div style="display:flex;flex-direction:column;gap:10px;padding-top:6px;max-width:460px;">
+                <a href="mailto:amar@example.com" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:var(--radius-lg);background:var(--color-surface);text-decoration:none;color:var(--color-text);box-shadow:var(--shadow-sm);transition:box-shadow .2s;" style-hover="box-shadow:0 0 0 1px var(--color-accent), 0 0 36px color-mix(in srgb, var(--color-accent) 22%, transparent);color:var(--color-text);">
+                  <i class="ph ph-envelope-simple" style="font-size:24px;color:var(--color-accent);"></i>
+                  <div style="flex:1;display:flex;flex-direction:column;min-width:0;"><span style="font-size:12px;color:var(--color-neutral-500);">Email</span><span style="font-size:16px;font-weight:500;overflow-wrap:anywhere;">amar@example.com</span></div>
+                  <i class="ph ph-arrow-up-right" style="font-size:18px;color:var(--color-neutral-500);"></i>
+                </a>
+                <a href="https://wa.me/60123456789" target="_blank" style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:var(--radius-lg);background:var(--color-surface);text-decoration:none;color:var(--color-text);box-shadow:var(--shadow-sm);transition:box-shadow .2s;" style-hover="box-shadow:0 0 0 1px var(--color-accent), 0 0 36px color-mix(in srgb, var(--color-accent) 22%, transparent);color:var(--color-text);">
+                  <i class="ph ph-whatsapp-logo" style="font-size:24px;color:var(--color-accent);"></i>
+                  <div style="flex:1;display:flex;flex-direction:column;min-width:0;"><span style="font-size:12px;color:var(--color-neutral-500);">WhatsApp</span><span style="font-size:16px;font-weight:500;">+60 12-345 6789</span></div>
+                  <i class="ph ph-arrow-up-right" style="font-size:18px;color:var(--color-neutral-500);"></i>
+                </a>
+              </div>
+            </div>
+            <div style="position:relative;perspective:1000px;min-height:400px;display:flex;flex-direction:column;justify-content:center;">
+              <sc-if value="{{ formShown }}" hint-placeholder-val="{{ true }}">
+                <form ref="{{ formRef }}" onSubmit="{{ sendForm }}" class="card elev-md" style="padding:22px;gap:14px;transform-origin:50% 0%;">
+                  <span style="font-size:18px;font-weight:500;">Send a message</span>
+                  <div class="field"><label>Your name</label><input class="input" name="name" required="" placeholder="Ali bin Abu"></div>
+                  <div class="field"><label>Email</label><input class="input" type="email" name="email" required="" placeholder="you@email.com"></div>
+                  <div class="field"><label>Message</label><textarea class="input" name="msg" required="" placeholder="Tell me about your project"></textarea></div>
+                  <button class="btn btn-primary" type="submit" style="padding:11px 18px;align-self:flex-start;"><i class="ph ph-paper-plane-tilt"></i>Send message</button>
+                </form>
+              </sc-if>
+              <sc-if value="{{ formSent }}">
+                <div ref="{{ sentRef }}" class="card elev-md" style="padding:28px 22px;gap:12px;align-items:flex-start;">
+                  <i class="ph ph-check-circle" style="font-size:38px;color:var(--color-accent);"></i>
+                  <span style="font-size:22px;font-weight:500;">Message sent</span>
+                  <p style="margin:0;color:var(--color-neutral-300);">Thanks, {{ sentName }}. It's on its way, and I'll get back to you soon.</p>
+                  <button class="btn btn-secondary" onClick="{{ resetForm }}" style="margin-top:6px;">Send another</button>
+                </div>
+              </sc-if>
+              <div ref="{{ foldRef }}" style="position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;transform-style:preserve-3d;opacity:0;pointer-events:none;">
+                <div style="position:absolute;inset:0;transform:translateZ(32px);display:grid;place-items:center;border:1px solid var(--color-accent-400);border-radius:6px;background:color-mix(in srgb, var(--color-accent-800) 88%, transparent);color:var(--color-accent-200);font-size:26px;"><i class="ph ph-envelope-simple"></i></div>
+                <div style="position:absolute;inset:0;transform:rotateY(90deg) translateZ(32px);border:1px solid var(--color-accent-400);border-radius:6px;background:color-mix(in srgb, var(--color-accent-800) 88%, transparent);"></div>
+                <div style="position:absolute;inset:0;transform:rotateY(180deg) translateZ(32px);border:1px solid var(--color-accent-400);border-radius:6px;background:color-mix(in srgb, var(--color-accent-800) 88%, transparent);"></div>
+                <div style="position:absolute;inset:0;transform:rotateY(-90deg) translateZ(32px);border:1px solid var(--color-accent-400);border-radius:6px;background:color-mix(in srgb, var(--color-accent-800) 88%, transparent);"></div>
+                <div style="position:absolute;inset:0;transform:rotateX(90deg) translateZ(32px);border:1px solid var(--color-accent-400);border-radius:6px;background:color-mix(in srgb, var(--color-accent-800) 88%, transparent);"></div>
+                <div style="position:absolute;inset:0;transform:rotateX(-90deg) translateZ(32px);border:1px solid var(--color-accent-400);border-radius:6px;background:color-mix(in srgb, var(--color-accent-800) 88%, transparent);"></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;justify-content:space-between;font-size:13px;color:var(--color-neutral-500);">
+            <span>© 2026 Muhamad Amar</span>
+            <button class="btn btn-ghost" onClick="{{ goTop }}"><i class="ph ph-arrow-up"></i>Back to the top</button>
+          </div>
+        </div>
+        <div data-shade="" style="position:absolute;inset:0;background:var(--color-bg);opacity:0;pointer-events:none;"></div>
+      </section>
+
+    </div>
+  </div>
+
+  <div ref="{{ spacerRef }}" aria-hidden="true">
+    <div style="height:100vh;scroll-snap-align:start;"></div>
+    <div style="height:100vh;scroll-snap-align:start;"></div>
+    <div style="height:100vh;scroll-snap-align:start;"></div>
+    <div style="height:100vh;scroll-snap-align:start;"></div>
+    <div style="height:100vh;scroll-snap-align:start;"></div>
+  </div>
+
+  <header class="nav" style="position:fixed;top:0;left:0;right:0;z-index:10;gap:clamp(14px,2.4vw,28px);padding:18px clamp(20px,6vw,96px);background:linear-gradient(to bottom, color-mix(in srgb, var(--color-bg) 85%, transparent), transparent);">
+    <a href="#" onClick="{{ goTopLink }}" class="nav-brand" style="display:flex;align-items:center;gap:8px;font-size:17px;"><i class="ph ph-cube" style="color:var(--color-accent);font-size:20px;"></i>Muhamad Amar</a>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+        <a href="#" onClick="{{ n.go }}" aria-current="{{ n.cur }}">{{ n.l }}</a>
+      </sc-for>
+    </sc-if>
+    <button class="btn btn-secondary btn-icon" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="margin-left:auto;"><sc-if value="{{ soundOn }}"><i class="ph ph-speaker-high" style="font-size:18px;color:var(--color-accent);"></i></sc-if><sc-if value="{{ soundOff }}" hint-placeholder-val="{{ true }}"><i class="ph ph-speaker-slash" style="font-size:18px;"></i></sc-if></button>
+    <button class="btn btn-primary" onClick="{{ goContact }}">Say hello</button>
+  </header>
+
+  <nav style="position:fixed;right:clamp(10px,2vw,28px);top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:6px;">
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+      <button onClick="{{ n.go }}" aria-label="{{ n.l }}" style="display:flex;justify-content:flex-end;align-items:center;width:36px;height:22px;padding:0;border:0;background:transparent;cursor:pointer;">
+        <sc-if value="{{ n.on }}"><span style="display:block;width:28px;height:2px;border-radius:1px;background:var(--color-accent);box-shadow:0 0 10px var(--color-accent);"></span></sc-if>
+        <sc-if value="{{ n.off }}"><span style="display:block;width:12px;height:2px;border-radius:1px;background:var(--color-neutral-700);"></span></sc-if>
+      </button>
+    </sc-for>
+  </nav>
+
+  <div style="position:fixed;left:clamp(20px,6vw,96px);bottom:20px;z-index:10;display:flex;align-items:baseline;gap:8px;font-size:12px;color:var(--color-neutral-500);pointer-events:none;">
+    <span style="font:500 13px ui-monospace,Menlo,monospace;color:var(--color-accent);">{{ activeNum }}</span><span>/ 05</span><span style="padding-left:6px;">{{ activeLabel }}</span>
+  </div>
+
+  <sc-if value="{{ isOpen }}">
+    <div class="dialog-backdrop" onClick="{{ close }}" style="z-index:50;backdrop-filter:blur(6px);">
+      <div class="dialog" onClick="{{ stop }}" role="dialog" aria-modal="true" style="width:min(1120px,100%);max-height:calc(100vh - 24px);overflow:auto;padding:clamp(16px,2.4vw,28px);gap:16px;">
+        <div style="display:flex;align-items:flex-start;gap:16px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0;">
+            <span class="card-kicker">{{ proj.stack }}</span>
+            <span class="dialog-title" style="font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;">{{ proj.title }}</span>
+          </div>
+          <button class="btn btn-secondary btn-icon" onClick="{{ close }}" aria-label="Close"><i class="ph ph-x" style="font-size:18px;"></i></button>
+        </div>
+        <p class="dialog-body" style="margin:0;max-width:720px;text-wrap:pretty;">{{ proj.desc }}</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+          <div class="seg">
+            <sc-for list="{{ shots }}" as="s" hint-placeholder-count="2">
+              <sc-if value="{{ s.on }}"><button class="seg-opt" onClick="{{ s.pick }}" style="border:0;background:transparent;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);font:inherit;font-size:13px;">{{ s.label }}</button></sc-if>
+              <sc-if value="{{ s.off }}"><button class="seg-opt" onClick="{{ s.pick }}" style="border:0;background:transparent;color:var(--color-text);font:inherit;font-size:13px;cursor:pointer;">{{ s.label }}</button></sc-if>
+            </sc-for>
+          </div>
+          <div style="flex:1;"></div>
+          <div class="seg">
+            <sc-for list="{{ devices }}" as="dv" hint-placeholder-count="3">
+              <sc-if value="{{ dv.on }}"><button class="seg-opt" onClick="{{ dv.pick }}" aria-label="{{ dv.l }}" style="border:0;background:transparent;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent);font:inherit;font-size:13px;"><i class="{{ dv.icon }}" style="font-size:16px;"></i>{{ dv.l }}</button></sc-if>
+              <sc-if value="{{ dv.off }}"><button class="seg-opt" onClick="{{ dv.pick }}" aria-label="{{ dv.l }}" style="border:0;background:transparent;color:var(--color-text);font:inherit;font-size:13px;cursor:pointer;"><i class="{{ dv.icon }}" style="font-size:16px;"></i>{{ dv.l }}</button></sc-if>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-secondary btn-icon" onClick="{{ prevShot }}" aria-label="Previous screen"><i class="ph ph-caret-left"></i></button>
+            <button class="btn btn-secondary btn-icon" onClick="{{ nextShot }}" aria-label="Next screen"><i class="ph ph-caret-right"></i></button>
+          </div>
+        </div>
+        <div ref="{{ shotRef }}" data-k="shot" style="position:relative;height:{{ previewH }}px;display:grid;place-items:center;overflow:hidden;border-radius:var(--radius-md);background:radial-gradient(ellipse at 50% 60%, var(--color-accent-900), var(--color-bg) 75%);box-shadow:var(--shadow-sm);">
+          <div style="position:relative;width:{{ boxW }}px;height:{{ boxH }}px;transition:width .45s cubic-bezier(.4,0,.2,1), height .45s cubic-bezier(.4,0,.2,1);">
+            <div style="position:absolute;top:0;left:0;transform-origin:0 0;transform:scale({{ devScale }});transition:transform .45s cubic-bezier(.4,0,.2,1);">
+              <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+                <div style="width:1280px;height:830px;border-radius:12px;overflow:hidden;background:var(--color-surface);box-shadow:var(--shadow-md);">
+                  <div style="height:30px;display:flex;align-items:center;gap:7px;padding:0 14px;">
+                    <span style="width:11px;height:11px;border-radius:50%;background:var(--color-neutral-700);"></span><span style="width:11px;height:11px;border-radius:50%;background:var(--color-neutral-700);"></span><span style="width:11px;height:11px;border-radius:50%;background:var(--color-neutral-700);"></span>
+                    <span style="margin:0 auto;padding:3px 60px;border-radius:6px;background:var(--color-bg);font-size:12px;color:var(--color-neutral-500);">amar.dev/work/{{ shotScreen }}</span>
+                  </div>
+                  <dc-import name="ProjectScreen" screen="{{ shotScreen }}" device="desktop" hint-size="1280px,800px"></dc-import>
+                </div>
+              </sc-if>
+              <sc-if value="{{ isTablet }}">
+                <div style="width:1316px;height:836px;border-radius:40px;padding:18px;box-sizing:border-box;background:var(--color-neutral-900);box-shadow:0 0 0 2px var(--color-neutral-800), var(--shadow-lg);">
+                  <div style="width:1280px;height:800px;border-radius:20px;overflow:hidden;"><dc-import name="ProjectScreen" screen="{{ shotScreen }}" device="desktop" hint-size="1280px,800px"></dc-import></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ isPhoneDev }}">
+                <div style="width:414px;height:868px;border-radius:58px;padding:12px;box-sizing:border-box;background:var(--color-neutral-900);box-shadow:0 0 0 2px var(--color-neutral-800), var(--shadow-lg);">
+                  <div style="position:relative;width:390px;height:844px;border-radius:46px;overflow:hidden;">
+                    <dc-import name="ProjectScreen" screen="{{ shotScreen }}" device="phone" hint-size="390px,844px"></dc-import>
+                    <div style="position:absolute;top:10px;left:50%;width:112px;height:32px;margin-left:-56px;border-radius:18px;background:var(--color-neutral-900);"></div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--color-neutral-400);">
+          <span style="padding-right:4px;">My role: {{ proj.role }}</span>
+          <sc-for list="{{ proj.tags }}" as="t" hint-placeholder-count="3"><span class="tag tag-neutral">{{ t }}</span></sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Vertical cube&quot;,&quot;Horizontal cube&quot;,&quot;Flat scroll&quot;],&quot;default&quot;:&quot;Vertical cube&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Scroll&quot;},&quot;snap&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Scroll&quot;},&quot;heroCube&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  state = { active: 0, open: -1, shot: 0, shotW: 900, thumbScale: 0.25, wide: true, device: 'desktop', sound: false, form: 'idle', sentName: '' };
+  stageRef = React.createRef(); cubeRef = React.createRef(); spacerRef = React.createRef(); miniRef = React.createRef();
+  formRef = React.createRef(); foldRef = React.createRef(); sentRef = React.createRef();
+  N = 5;
+  labels = ['Home', 'Work', 'About', 'Experience', 'Contact'];
+  projects = [
+    { title: 'Staff Timetable System', stack: 'Laravel · MySQL · Blade', thumb: 'tt-week', role: 'Design and full-stack build',
+      short: 'Plan weekly shifts, track hours and handle leave in one place.',
+      desc: 'An internal tool that replaced a shared spreadsheet. Managers drag staff into shifts, see who is over or under hours, and approve leave requests. Staff get their own timetable on their phone.',
+      tags: ['Laravel', 'MySQL', 'Role-based access', 'Responsive'],
+      screens: [{ id: 'tt-week', label: 'Weekly timetable' }, { id: 'tt-staff', label: 'Staff directory' }] },
+    { title: 'Sales Page & Admin Panel', stack: 'Laravel · React', thumb: 'sales-landing', role: 'Full-stack build and copy',
+      short: 'A product sales page that sends orders to WhatsApp, plus an admin to track them.',
+      desc: 'A single-product sales page built to convert on mobile. Orders go straight to WhatsApp, and the admin panel shows revenue, order status and best-selling products.',
+      tags: ['Laravel API', 'React', 'WhatsApp ordering', 'Charts'],
+      screens: [{ id: 'sales-landing', label: 'Sales page' }, { id: 'sales-admin', label: 'Admin dashboard' }] },
+    { title: 'Restaurant Menu & Landing', stack: 'HTML · CSS · JavaScript', thumb: 'resto-landing', role: 'Design and front end',
+      short: 'A demo restaurant site with reservations and a digital table menu.',
+      desc: 'A demo for restaurants: a landing page with opening hours and table booking, and a QR digital menu where diners add dishes and send the order to the kitchen.',
+      tags: ['HTML', 'CSS', 'Vanilla JS', 'QR menu'],
+      screens: [{ id: 'resto-landing', label: 'Landing page' }, { id: 'resto-menu', label: 'Digital menu' }] }
+  ];
+  mini = { rx: -22, ry: 30, vx: 0, vy: 0.25, drag: false };
+  mouse = { x: 0, y: 0 }; tilt = { x: 0, y: 0 };
+  ro = new ResizeObserver(es => {
+    for (const e of es) {
+      const w = e.contentRect.width; if (!w) continue;
+      if (e.target.dataset.k === 'shot') { if (Math.abs(w - this.state.shotW) > 0.5) this.setState({ shotW: w }); }
+      else if (Math.abs(w / 1280 - this.state.thumbScale) > 0.0005) this.setState({ thumbScale: w / 1280 });
+    }
+  });
+  thumbRef = el => { if (el) this.ro.observe(el); };
+  shotRef = el => { if (el) this.ro.observe(el); };
+
+  componentDidMount() {
+    window.addEventListener('resize', this.layout);
+    window.addEventListener('keydown', this.onKey);
+    window.addEventListener('mousemove', this.onMouse);
+    window.addEventListener('pointermove', this.onPMove);
+    window.addEventListener('pointerup', this.onPUp);
+    window.addEventListener('pointercancel', this.onPUp);
+    if (this.stageRef.current) this.stageRef.current.addEventListener('pointerdown', this.stageDown);
+    this.layout();
+    const loop = () => { this.frame(); this.raf = requestAnimationFrame(loop); };
+    loop();
+    setTimeout(() => this.faces && this.scramble(this.faces[this.state.active]), 300);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('resize', this.layout);
+    window.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('mousemove', this.onMouse);
+    window.removeEventListener('pointermove', this.onPMove);
+    window.removeEventListener('pointerup', this.onPUp);
+    window.removeEventListener('pointercancel', this.onPUp);
+    if (this.stageRef.current) this.stageRef.current.removeEventListener('pointerdown', this.stageDown);
+    this.ro.disconnect();
+    document.documentElement.style.scrollSnapType = '';
+    document.documentElement.style.overflow = '';
+  }
+  componentDidUpdate(pp, ps) {
+    if (pp.motion !== this.props.motion || pp.snap !== this.props.snap) this.layout();
+    if (ps.active !== this.state.active) {
+      if (this.faces) this.scramble(this.faces[this.state.active]);
+      if (this.state.sound) this.tick();
+    }
+    if (ps.form !== 'sent' && this.state.form === 'sent' && this.sentRef.current)
+      this.sentRef.current.animate([{ opacity: 0, transform: 'translateY(14px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.2,.8,.2,1)' });
+  }
+  mode() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return 'flat';
+    const m = this.props.motion ?? 'Vertical cube';
+    return m === 'Horizontal cube' ? 'h' : m === 'Flat scroll' ? 'flat' : 'v';
+  }
+  snapOn() { document.documentElement.style.scrollSnapType = (this.m !== 'flat' && (this.props.snap ?? true)) ? 'y mandatory' : 'none'; }
+  layout = () => {
+    const stage = this.stageRef.current, cube = this.cubeRef.current, spacer = this.spacerRef.current;
+    if (!stage || !cube || !spacer) return;
+    const m = this.mode(); this.m = m;
+    this.faces = [...cube.querySelectorAll('[data-face]')];
+    this.shades = this.faces.map(f => f.querySelector('[data-shade]'));
+    const wide = innerWidth >= 860;
+    if (wide !== this.state.wide) this.setState({ wide });
+    if (m === 'flat') {
+      Object.assign(stage.style, { position: 'relative', height: 'auto', perspective: 'none', cursor: 'auto', touchAction: '' });
+      Object.assign(cube.style, { position: 'relative', transform: 'none', height: 'auto' });
+      this.faces.forEach(f => Object.assign(f.style, { position: 'relative', transform: 'none', visibility: 'visible', height: 'auto', minHeight: '100vh', overflow: 'visible' }));
+      this.shades.forEach(s => s && (s.style.opacity = 0));
+      spacer.style.display = 'none';
+    } else {
+      const W = innerWidth, H = innerHeight, D = m === 'v' ? H : W;
+      this.D = D;
+      Object.assign(stage.style, { position: 'fixed', height: '100%', perspective: Math.max(1400, D * 1.8) + 'px', cursor: 'grab', touchAction: m === 'h' ? 'pan-y' : '' });
+      Object.assign(cube.style, { position: 'absolute', height: '100%' });
+      this.faceT = this.faces.map((f, i) => m === 'v' ? `rotateX(${-i * 90}deg) translateZ(${H / 2}px)` : `rotateY(${i * 90}deg) translateZ(${W / 2}px)`);
+      this.faces.forEach((f, i) => Object.assign(f.style, { position: 'absolute', height: '100%', minHeight: '0', overflow: 'hidden auto', transform: this.faceT[i] }));
+      spacer.style.display = 'block';
+    }
+    this.snapOn();
+  };
+  frame() {
+    if (!this.faces) return;
+    const vh = innerHeight, N = this.N;
+    const tiltOn = this.state.open < 0 && this.state.wide && this.m !== 'flat' && !this.drag;
+    this.tilt.x += ((tiltOn ? this.mouse.x : 0) - this.tilt.x) * 0.06;
+    this.tilt.y += ((tiltOn ? this.mouse.y : 0) - this.tilt.y) * 0.06;
+    let pos, active;
+    if (this.m === 'flat') {
+      active = 0;
+      this.faces.forEach((f, i) => { if (f.getBoundingClientRect().top < vh * 0.5) active = i; });
+      pos = active;
+    } else {
+      const p = Math.min(N - 1, Math.max(0, scrollY / vh));
+      const s = Math.min(N - 2, Math.floor(p)), f = p - s;
+      const e = f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2;
+      pos = s + e;
+      const a = pos * 90, dip = Math.sin(Math.PI * e), D = this.D;
+      const rest = Math.abs(pos - Math.round(pos)) < 1e-4, ri = Math.round(pos);
+      const tl = `rotateX(${(-this.tilt.y * 2.2).toFixed(3)}deg) rotateY(${(this.tilt.x * 3).toFixed(3)}deg)`;
+      this.cubeRef.current.style.transform = rest ? tl : `${tl} translateZ(${-D / 2 - dip * D * 0.5}px) rotate${this.m === 'v' ? 'X' : 'Y'}(${this.m === 'v' ? a : -a}deg)`;
+      this.faces.forEach((fc, i) => {
+        fc.style.transform = rest && i === ri ? 'none' : this.faceT[i];
+        const off = Math.abs(i - pos);
+        fc.style.visibility = off < 0.999 ? 'visible' : 'hidden';
+        const sh = this.shades[i]; if (sh) sh.style.opacity = off < 1 ? (1 - Math.cos(off * Math.PI / 2)) * 0.75 : 0;
+      });
+      active = ri;
+    }
+    const mini = this.miniRef.current, M = this.mini;
+    if (!M.drag) {
+      M.vx *= 0.94; M.vy = M.vy * 0.94 + 0.25 * 0.06;
+      M.rx += M.vx; M.ry += M.vy;
+      if (Math.abs(M.vx) < 0.05) { const r = (((M.rx + 22) % 360) + 540) % 360 - 180; M.rx = -22 + r * 0.97; }
+    }
+    if (mini) mini.style.transform = `rotateX(${M.rx}deg) rotateY(${M.ry}deg)`;
+    if (active !== this.state.active) this.setState({ active });
+  }
+  scramble(face) {
+    if (!face) return;
+    const G = '!<>-_/[]{}=+*^?#01';
+    face.querySelectorAll('[data-scramble]').forEach(el => {
+      const n = el.firstChild; if (!n || n.nodeType !== 3) return;
+      if (!el._raf) el._orig = n.nodeValue;
+      const orig = el._orig, len = orig.length, t0 = performance.now(), dur = 380 + len * 16;
+      cancelAnimationFrame(el._raf);
+      const step = now => {
+        const k = Math.min(1, (now - t0) / dur);
+        let out = '';
+        for (let i = 0; i < len; i++) {
+          const c = orig[i];
+          out += (c === ' ' || k >= (i / len) * 0.7 + 0.3) ? c : G[(Math.random() * G.length) | 0];
+        }
+        n.nodeValue = out;
+        if (k < 1) el._raf = requestAnimationFrame(step); else { n.nodeValue = orig; el._raf = 0; }
+      };
+      el._raf = requestAnimationFrame(step);
+    });
+  }
+  tick() {
+    const c = this.ac; if (!c) return;
+    const t = c.currentTime, o = c.createOscillator(), g = c.createGain();
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(1100, t); o.frequency.exponentialRampToValueAtTime(420, t + 0.07);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.14, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+    o.connect(g).connect(c.destination); o.start(t); o.stop(t + 0.12);
+  }
+  toggleSound = () => {
+    if (!this.ac) { const AC = window.AudioContext || window.webkitAudioContext; if (AC) this.ac = new AC(); }
+    if (this.ac && this.ac.resume) this.ac.resume();
+    this.setState(s => ({ sound: !s.sound }), () => { if (this.state.sound) this.tick(); });
+  };
+  onMouse = e => { this.mouse.x = e.clientX / innerWidth * 2 - 1; this.mouse.y = e.clientY / innerHeight * 2 - 1; };
+  stageDown = e => {
+    if (this.m === 'flat' || this.state.open >= 0 || e.button !== 0) return;
+    if (e.pointerType === 'touch' && this.m === 'v') return;
+    if (e.target.closest('a,button,input,textarea,select,label,form,[role=button],[data-nodrag]')) return;
+    this.drag = { x: e.clientX, y: e.clientY, sy: scrollY, d: 0 };
+    clearTimeout(this.snapT);
+    document.documentElement.style.scrollSnapType = 'none';
+    this.stageRef.current.style.cursor = 'grabbing';
+    document.body.style.userSelect = 'none';
+  };
+  onPMove = e => {
+    const md = this.miniDrag;
+    if (md) {
+      const dx = e.clientX - md.x, dy = e.clientY - md.y;
+      md.x = e.clientX; md.y = e.clientY; md.moved += Math.abs(dx) + Math.abs(dy);
+      this.mini.ry += dx * 0.6; this.mini.rx -= dy * 0.6; this.mini.vy = dx * 0.6; this.mini.vx = -dy * 0.6;
+      return;
+    }
+    const d = this.drag; if (!d) return;
+    d.d = this.m === 'v' ? e.clientY - d.y : e.clientX - d.x;
+    const k = innerHeight / (0.6 * this.D);
+    window.scrollTo(0, Math.max(0, Math.min((this.N - 1) * innerHeight, d.sy - d.d * k)));
+  };
+  onPUp = () => {
+    if (this.miniDrag) {
+      this.miniDragged = this.miniDrag.moved > 6; this.miniDrag = null; this.mini.drag = false;
+      setTimeout(() => { this.miniDragged = false; }, 0);
+      return;
+    }
+    const d = this.drag; if (!d) return; this.drag = null;
+    this.stageRef.current.style.cursor = 'grab';
+    document.body.style.userSelect = '';
+    const vh = innerHeight, start = Math.round(d.sy / vh);
+    let t = Math.abs(d.d) > 50 ? start + (d.d < 0 ? 1 : -1) : Math.round(scrollY / vh);
+    t = Math.max(0, Math.min(this.N - 1, t));
+    window.scrollTo({ top: t * vh, behavior: 'smooth' });
+    this.snapT = setTimeout(() => this.snapOn(), 900);
+  };
+  miniDown = e => { e.stopPropagation(); this.miniDrag = { x: e.clientX, y: e.clientY, moved: 0 }; this.mini.drag = true; };
+  miniGo = i => () => { if (!this.miniDragged) this.goTo(i); };
+  cardTilt = e => {
+    if (e.pointerType !== 'mouse') return;
+    const el = e.currentTarget, r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    el.style.transform = `perspective(900px) rotateX(${((0.5 - y) * 10).toFixed(2)}deg) rotateY(${((x - 0.5) * 12).toFixed(2)}deg)`;
+    el.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+    el.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+    el.style.setProperty('--glare', '1');
+  };
+  cardReset = e => { const el = e.currentTarget; el.style.transform = ''; el.style.setProperty('--glare', '0'); };
+  sendForm = e => {
+    e.preventDefault();
+    if (this.state.form !== 'idle') return;
+    const raw = (new FormData(e.currentTarget).get('name') || '').toString().trim();
+    const name = raw.split(' ')[0] || 'friend';
+    const f = this.formRef.current, cube = this.foldRef.current;
+    if (this.state.sound) this.tick();
+    this.setState({ form: 'sending', sentName: name });
+    if (!f || !cube || !f.animate) { this.setState({ form: 'sent' }); return; }
+    f.animate([
+      { transform: 'none', opacity: 1 },
+      { transform: 'rotateX(-80deg) scale(.55)', opacity: 0.7, offset: 0.6 },
+      { transform: 'rotateX(-90deg) scale(.12)', opacity: 0 }
+    ], { duration: 650, easing: 'cubic-bezier(.6,0,.4,1)', fill: 'forwards' });
+    const a = cube.animate([
+      { opacity: 0, transform: 'scale(.2) rotateX(0deg) rotateY(0deg)' },
+      { opacity: 1, transform: 'scale(1.1) rotateX(200deg) rotateY(160deg)', offset: 0.4 },
+      { opacity: 1, transform: 'translate(0px,0px) scale(1) rotateX(330deg) rotateY(300deg)', offset: 0.65 },
+      { opacity: 0, transform: 'translate(260px,-300px) scale(.3) rotateX(540deg) rotateY(500deg)' }
+    ], { duration: 1500, delay: 380, easing: 'cubic-bezier(.5,0,.3,1)', fill: 'forwards' });
+    a.onfinish = () => this.setState({ form: 'sent' });
+  };
+  resetForm = () => {
+    if (this.foldRef.current && this.foldRef.current.getAnimations) this.foldRef.current.getAnimations().forEach(a => a.cancel());
+    this.setState({ form: 'idle' });
+  };
+  goTo = i => {
+    if (this.m === 'flat') window.scrollTo({ top: this.faces[i].offsetTop, behavior: 'smooth' });
+    else window.scrollTo({ top: i * innerHeight, behavior: 'smooth' });
+  };
+  openProject = i => { this.setState({ open: i, shot: 0 }); document.documentElement.style.overflow = 'hidden'; };
+  close = () => { this.setState({ open: -1 }); document.documentElement.style.overflow = ''; };
+  step = d => this.setState(s => {
+    const n = this.projects[s.open].screens.length;
+    return { shot: (s.shot + d + n) % n };
+  });
+  onKey = e => {
+    if (this.state.open < 0) return;
+    if (e.key === 'Escape') this.close();
+    if (e.key === 'ArrowRight') this.step(1);
+    if (e.key === 'ArrowLeft') this.step(-1);
+  };
+  renderVals() {
+    const { active, open, shot, device, shotW } = this.state;
+    const proj = open >= 0 ? this.projects[open] : this.projects[0];
+    const [fw, fh] = { desktop: [1280, 830], tablet: [1316, 836], phone: [414, 868] }[device];
+    const previewH = Math.round(Math.max(240, Math.min(shotW * 0.6, innerHeight * 0.58)));
+    const devScale = Math.min((shotW - 40) / fw, (previewH - 40) / fh);
+    const devs = [['desktop', 'Desktop', 'ph ph-desktop'], ['tablet', 'Tablet', 'ph ph-device-tablet'], ['phone', 'Phone', 'ph ph-device-mobile']];
+    return {
+      stageRef: this.stageRef, cubeRef: this.cubeRef, spacerRef: this.spacerRef, miniRef: this.miniRef,
+      formRef: this.formRef, foldRef: this.foldRef, sentRef: this.sentRef,
+      thumbRef: this.thumbRef, shotRef: this.shotRef,
+      thumbScale: this.state.thumbScale,
+      wide: this.state.wide,
+      showMini: this.state.wide && (this.props.heroCube ?? true),
+      miniDown: this.miniDown, miniGo0: this.miniGo(0), miniGo1: this.miniGo(1), miniGo2: this.miniGo(2), miniGo3: this.miniGo(3), miniGo4: this.miniGo(4),
+      soundOn: this.state.sound, soundOff: !this.state.sound, toggleSound: this.toggleSound,
+      cardTilt: this.cardTilt, cardReset: this.cardReset,
+      nav: this.labels.map((l, i) => ({ l, on: i === active, off: i !== active, cur: i === active ? 'page' : undefined, go: e => { e && e.preventDefault && e.preventDefault(); this.goTo(i); } })),
+      activeNum: '0' + (active + 1), activeLabel: this.labels[active],
+      goWork: () => this.goTo(1), goContact: () => this.goTo(4), goTop: () => this.goTo(0),
+      goTopLink: e => { e.preventDefault(); this.goTo(0); },
+      projects: this.projects.map((p, i) => ({ ...p, open: () => this.openProject(i) })),
+      isOpen: open >= 0, proj, close: this.close, stop: e => e.stopPropagation(),
+      shots: proj.screens.map((s, j) => ({ label: s.label, on: j === shot, off: j !== shot, pick: () => this.setState({ shot: j }) })),
+      shotScreen: proj.screens[Math.min(shot, proj.screens.length - 1)].id,
+      prevShot: () => this.step(-1), nextShot: () => this.step(1),
+      devices: devs.map(([id, l, icon]) => ({ l, icon, on: id === device, off: id !== device, pick: () => this.setState({ device: id }) })),
+      isDesktop: device === 'desktop', isTablet: device === 'tablet', isPhoneDev: device === 'phone',
+      previewH, devScale, boxW: Math.round(fw * devScale), boxH: Math.round(fh * devScale),
+      formShown: this.state.form !== 'sent', formSent: this.state.form === 'sent', sentName: this.state.sentName,
+      sendForm: this.sendForm, resetForm: this.resetForm
+    };
+  }
+}
+</script>
+</body>
+</html>

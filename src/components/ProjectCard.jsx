@@ -1,80 +1,126 @@
-import { useState } from 'react'
-import Tag from './Tag'
-import ExternalLink from './ExternalLink'
+import { useEffect, useRef, useState } from 'react'
+import { ArrowUpRight } from '@phosphor-icons/react'
+import { ProjectScreen } from '../screens'
 
-function StatusBadge({ status }) {
-  const isLive = status === 'in production'
+// Live-rendered thumbnail of the first screen: the 1280×800 mock-up is scaled to the card width.
+function Thumbnail({ screen }) {
+  const ref = useRef(null)
+  const [scale, setScale] = useState(0.25)
+
+  useEffect(() => {
+    const el = ref.current
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry.contentRect.width
+      if (width) setScale(width / 1280)
+    })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <span
-      className={`inline-flex shrink-0 items-center gap-1.5 rounded border px-2 py-0.5 font-mono text-xs ${
-        isLive ? 'border-accent/40 text-accent' : 'border-line text-muted'
-      }`}
+    <div
+      ref={ref}
+      style={{
+        transform: 'translateZ(22px)',
+        position: 'relative',
+        aspectRatio: '1280/800',
+        overflow: 'hidden',
+        borderRadius: 'var(--radius-sm)',
+        background: 'var(--color-bg)',
+      }}
     >
-      {isLive && <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />}
-      {status}
-    </span>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '1280px',
+          height: '800px',
+          transformOrigin: '0 0',
+          transform: `scale(${scale})`,
+          pointerEvents: 'none',
+        }}
+      >
+        {screen.image ? (
+          <img src={screen.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+        ) : (
+          <ProjectScreen screen={screen.id} />
+        )}
+      </div>
+    </div>
   )
 }
 
-export default function ProjectCard({ project }) {
-  const { title, description, image, tech, liveUrl, githubUrl, status, featured } = project
-  const [imageFailed, setImageFailed] = useState(false)
-  const showImage = Boolean(image) && !imageFailed
+// Mouse-only 3D tilt and glare, as in the design's cardTilt / cardReset.
+function tilt(event) {
+  if (event.pointerType !== 'mouse') return
+  const el = event.currentTarget
+  const r = el.getBoundingClientRect()
+  const x = (event.clientX - r.left) / r.width
+  const y = (event.clientY - r.top) / r.height
+  el.style.transform = `perspective(900px) rotateX(${((0.5 - y) * 10).toFixed(2)}deg) rotateY(${((x - 0.5) * 12).toFixed(2)}deg)`
+  el.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`)
+  el.style.setProperty('--my', `${(y * 100).toFixed(1)}%`)
+  el.style.setProperty('--glare', '1')
+}
 
-  const mediaClass = `aspect-video w-full border-b border-line ${
-    featured ? 'md:aspect-auto md:h-full md:border-b-0 md:border-r' : ''
-  }`
+function untilt(event) {
+  const el = event.currentTarget
+  el.style.transform = ''
+  el.style.setProperty('--glare', '0')
+}
+
+export default function ProjectCard({ project, onOpen }) {
+  const open = (event) => onOpen(project, event.currentTarget)
 
   return (
-    <article
-      className={`flex flex-col overflow-hidden rounded-lg border border-line bg-surface transition-colors hover:border-accent/40 ${
-        featured ? 'md:col-span-2 md:grid md:grid-cols-2' : ''
-      }`}
+    <div
+      className="card elev-sm project-card"
+      role="button"
+      tabIndex={0}
+      aria-label={`${project.title} — view screens`}
+      onClick={open}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault() // stop Space from scrolling the page
+          open(event)
+        }
+      }}
+      onPointerMove={tilt}
+      onPointerLeave={untilt}
+      style={{
+        position: 'relative',
+        cursor: 'pointer',
+        padding: '10px 10px 16px',
+        gap: '12px',
+        transformStyle: 'preserve-3d',
+        transition: 'box-shadow .2s, transform .18s ease-out',
+      }}
     >
-      {showImage ? (
-        <img
-          src={image}
-          alt={`Screenshot of ${title}`}
-          width="1280"
-          height="720"
-          loading="lazy"
-          onError={() => setImageFailed(true)}
-          className={`${mediaClass} object-cover object-top`}
-        />
-      ) : (
-        <div
-          data-testid="image-placeholder"
-          aria-hidden="true"
-          className={`${mediaClass} flex items-center justify-center bg-bg p-4 text-center font-mono text-sm text-muted`}
-        >
-          {title}
-        </div>
-      )}
-
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <h3 className="text-lg font-semibold text-heading">{title}</h3>
-          <StatusBadge status={status} />
-        </div>
-        <p className="mt-3 leading-relaxed">{description}</p>
-        <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-1">
-          {tech.map((item) => (
-            <li key={item}>
-              <Tag>{item}</Tag>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-auto flex gap-5 pt-6 font-mono text-sm">
-          <ExternalLink href={liveUrl} className="text-accent hover:underline">
-            live <span aria-hidden="true">↗</span>
-            <span className="sr-only"> — {title}</span>
-          </ExternalLink>
-          <ExternalLink href={githubUrl} className="text-heading hover:text-accent">
-            github <span aria-hidden="true">↗</span>
-            <span className="sr-only"> — {title}</span>
-          </ExternalLink>
-        </div>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: 'inherit',
+          pointerEvents: 'none',
+          background:
+            'radial-gradient(circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--color-accent) 22%, transparent), transparent 55%)',
+          opacity: 'var(--glare,0)',
+          transition: 'opacity .25s',
+        }}
+      />
+      <Thumbnail screen={project.screens[0]} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '0 6px' }}>
+        <span className="card-kicker">{project.stack}</span>
+        <span className="card-title">{project.title}</span>
+        <p className="card-body" style={{ textWrap: 'pretty' }}>
+          {project.short}
+        </p>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--color-accent)', paddingTop: '4px' }}>
+          View screens
+          <ArrowUpRight aria-hidden="true" />
+        </span>
       </div>
-    </article>
+    </div>
   )
 }

@@ -1,30 +1,33 @@
 // Run before deploying: fails if placeholder content or required files are missing.
-import { readFileSync, readdirSync, existsSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { projects } from '../src/data/projects.js'
-import { isPlaceholder } from './placeholder.js'
+import { findPlaceholders, existsWithExactCase } from './content-rules.js'
 
 const problems = []
 
-function scanForTodo(path) {
+function scan(path) {
   readFileSync(path, 'utf8')
     .split('\n')
     .forEach((line, index) => {
-      if (isPlaceholder(line)) problems.push(`${path}:${index + 1}  ${line.trim()}`)
+      const found = findPlaceholders(line)
+      if (found.length > 0) problems.push(`${path}:${index + 1}  ${line.trim()}`)
     })
 }
 
 const dataDir = 'src/data'
 for (const file of readdirSync(dataDir)) {
-  if (file.endsWith('.js') && !file.endsWith('.test.js')) scanForTodo(join(dataDir, file))
+  if (file.endsWith('.js') && !file.endsWith('.test.js')) scan(join(dataDir, file))
 }
-scanForTodo('index.html')
+scan('index.html')
 
-if (!existsSync('public/cv.pdf')) problems.push('public/cv.pdf is missing')
+if (!existsWithExactCase('public/cv/Amar-CV.pdf')) problems.push('public/cv/Amar-CV.pdf is missing')
 
 for (const project of projects) {
-  if (project.image && !existsSync(join('public', project.image))) {
-    problems.push(`Screenshot for "${project.title}" not found: public${project.image}`)
+  for (const screen of project.screens) {
+    if (screen.image && !existsWithExactCase(join('public', screen.image))) {
+      problems.push(`Screenshot for "${project.title}" (${screen.label}) not found: public${screen.image}`)
+    }
   }
 }
 
