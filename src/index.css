@@ -22,6 +22,11 @@ a:hover {
   --color-danger: #f2a7a7;
 }
 
+/* An invalid field's border matches its error message. */
+.input[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
 /* Hover states the design wrote as style-hover. */
 .project-card:hover {
   box-shadow: 0 0 0 1px var(--color-accent), 0 16px 44px color-mix(in srgb, var(--color-accent) 20%, transparent);

@@ -4,9 +4,10 @@ export default function SectionIndicator({ labels, active, onNavigate }) {
   return (
     <nav
       aria-label="Sections"
+      // Hugs the screen edge on phones so it never overlaps content; the design's spacing from 860px up.
+      className="right-1 min-[860px]:right-[clamp(10px,2vw,28px)]"
       style={{
         position: 'fixed',
-        right: 'clamp(10px,2vw,28px)',
         top: '50%',
         transform: 'translateY(-50%)',
         zIndex: 10,
