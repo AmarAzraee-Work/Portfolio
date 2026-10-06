@@ -32,7 +32,11 @@ function Harness({ paused = false }) {
           ))}
         </div>
       </div>
-      <div ref={spacerRef} />
+      <div ref={spacerRef}>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <div key={i} style={{ height: '100vh' }} />
+        ))}
+      </div>
     </>
   )
 }
@@ -95,6 +99,35 @@ describe('useCubeScroll', () => {
       window.dispatchEvent(new Event('resize'))
     })
     expect(result.wide).toBe(false)
+  })
+
+  it('sizes the scroll track to the visible viewport height, not 100vh', () => {
+    stubReducedMotion(false)
+    const { container } = render(<Harness />)
+    const blocks = container.querySelectorAll('[data-face]')[0].closest('div').parentElement.nextElementSibling.children
+    expect(blocks[0].style.height).toBe('800px')
+    act(() => {
+      window.innerHeight = 700 // e.g. a phone toolbar appears
+      window.dispatchEvent(new Event('resize'))
+    })
+    expect(blocks[4].style.height).toBe('700px')
+  })
+
+  it('scrolls a tall face with the keyboard before turning the cube', () => {
+    stubReducedMotion(false)
+    const { container } = render(<Harness />)
+    const face = container.querySelector('[data-face="0"]')
+    Object.defineProperty(face, 'scrollHeight', { configurable: true, value: 1500 })
+    Object.defineProperty(face, 'clientHeight', { configurable: true, value: 800 })
+    face.scrollBy = vi.fn()
+
+    fireEvent.keyDown(window, { key: 'PageDown' })
+    expect(face.scrollBy).toHaveBeenCalled()
+    expect(scrollTo).not.toHaveBeenCalled()
+
+    face.scrollTop = 700 // reached the bottom of the face
+    fireEvent.keyDown(window, { key: 'PageDown' })
+    expect(scrollTo).toHaveBeenLastCalledWith(expect.objectContaining({ top: 800 }))
   })
 
   it('cleans up page styles on unmount', () => {

@@ -55,6 +55,9 @@ export function useCubeScroll({ stageRef, cubeRef, spacerRef, count = 5, paused 
         Object.assign(face.style, { position: 'absolute', height: '100%', minHeight: '0', overflow: 'hidden auto', transform: st.faceT[i] }),
       )
       spacer.style.display = 'block'
+      // Snap points must sit at multiples of the height the cube maths uses. On phones 100vh is taller than
+      // the visible area while the browser toolbar shows, so size the track from innerHeight instead.
+      ;[...spacer.children].forEach((block) => (block.style.height = `${H}px`))
     }
     snapOn()
   }, [stageRef, cubeRef, spacerRef, snapOn])
@@ -143,6 +146,16 @@ export function useCubeScroll({ stageRef, cubeRef, spacerRef, count = 5, paused 
       const action = navKeyAction({ key: event.key, shiftKey: event.shiftKey, paused: live.current.paused, inField: isTyping(event.target) || isPressing(event) })
       if (!action) return
       event.preventDefault()
+      // A face taller than the screen scrolls first; the cube turns once the face reaches its edge.
+      const face = live.current.mode === 'cube' ? st.faces[st.active] : null
+      if (face && (action === 'next' || action === 'prev')) {
+        const room = action === 'next' ? face.scrollHeight - face.clientHeight - face.scrollTop : face.scrollTop
+        if (room > 1) {
+          const step = event.key.startsWith('Arrow') ? 60 : face.clientHeight * 0.8
+          face.scrollBy?.({ top: action === 'next' ? step : -step, behavior: 'smooth' })
+          return
+        }
+      }
       const from = st.active
       goTo({ next: from + 1, prev: from - 1, first: 0, last: count - 1 }[action])
     }

@@ -59,9 +59,11 @@ describe('ContactForm', () => {
 
     expect(await screen.findByText('Message sent')).toBeInTheDocument()
     expect(screen.getByText("Thanks, Ali. It's on its way, and I'll get back to you soon.")).toBeInTheDocument()
+    expect(screen.getByText('Message sent')).toHaveFocus()
 
     await user.click(screen.getByRole('button', { name: 'Send another' }))
     expect(screen.getByLabelText('Your name')).toHaveValue('')
+    expect(screen.getByLabelText('Your name')).toHaveFocus()
   })
 
   it('keeps the message and shows the email when sending fails', async () => {
@@ -119,6 +121,15 @@ describe('ContactForm', () => {
 
       resolve({ ok: true })
       expect(await screen.findByText('Message sent')).toBeInTheDocument()
+    })
+
+    it('says it is still sending when the request outlasts the animation', async () => {
+      const user = userEvent.setup()
+      vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {})))
+      render(<ContactForm endpoint={ENDPOINT} email={EMAIL} />)
+      await fill(user)
+      await user.click(screen.getByRole('button', { name: /send message/i }))
+      expect(await screen.findByText('Sending…')).toBeVisible()
     })
 
     it('cancels the animation when sending fails', async () => {

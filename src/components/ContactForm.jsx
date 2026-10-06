@@ -60,6 +60,9 @@ export default function ContactForm({ endpoint, email, reducedMotion = false }) 
   const [status, setStatus] = useState('idle') // idle | sending | sent
   const [failed, setFailed] = useState(false)
   const [sentName, setSentName] = useState('')
+  const [animating, setAnimating] = useState(false) // fold animation still playing
+  const focusName = useRef(false)
+  const sentTitleRef = useRef(null)
   const busy = useRef(false)
   const formRef = useRef(null)
   const foldRef = useRef(null)
@@ -67,6 +70,15 @@ export default function ContactForm({ endpoint, email, reducedMotion = false }) 
   const running = useRef([])
 
   const canAnimate = !reducedMotion && typeof Element.prototype.animate === 'function'
+
+  // Keep keyboard and screen-reader users oriented: focus the confirmation, or the first field after a reset.
+  useEffect(() => {
+    if (status === 'sent') sentTitleRef.current?.focus()
+    if (status === 'idle' && focusName.current) {
+      focusName.current = false
+      document.getElementById('contact-name')?.focus()
+    }
+  }, [status])
 
   useEffect(() => {
     if (status === 'sent' && canAnimate && sentRef.current) {
@@ -125,8 +137,12 @@ export default function ContactForm({ endpoint, email, reducedMotion = false }) 
       const fold = formRef.current.animate(...FOLD)
       const fly = foldRef.current.animate(...FLY)
       running.current = [fold, fly]
+      setAnimating(true)
       animationDone = new Promise((resolve) => {
-        fly.onfinish = resolve
+        fly.onfinish = () => {
+          setAnimating(false)
+          resolve()
+        }
       })
     }
 
@@ -136,6 +152,7 @@ export default function ContactForm({ endpoint, email, reducedMotion = false }) 
       setStatus('sent')
     } catch {
       cancelAnimations() // brings the form back exactly as it was
+      setAnimating(false)
       setStatus('idle')
       setFailed(true)
     } finally {
@@ -147,6 +164,7 @@ export default function ContactForm({ endpoint, email, reducedMotion = false }) 
     cancelAnimations()
     foldRef.current?.getAnimations?.().forEach((animation) => animation.cancel())
     setValues(EMPTY)
+    focusName.current = true
     setStatus('idle')
   }
 
@@ -194,12 +212,27 @@ export default function ContactForm({ endpoint, email, reducedMotion = false }) 
       {status === 'sent' && (
         <div ref={sentRef} role="status" className="card elev-md" style={{ padding: '28px 22px', gap: '12px', alignItems: 'flex-start' }}>
           <CheckCircle aria-hidden="true" style={{ fontSize: '38px', color: 'var(--color-accent)' }} />
-          <span style={{ fontSize: '22px', fontWeight: 500 }}>Message sent</span>
+          <span ref={sentTitleRef} tabIndex={-1} style={{ fontSize: '22px', fontWeight: 500, outline: 'none' }}>
+            Message sent
+          </span>
           <p style={{ margin: 0, color: 'var(--color-neutral-300)' }}>Thanks, {sentName}. It&apos;s on its way, and I&apos;ll get back to you soon.</p>
           <button className="btn btn-secondary" onClick={sendAnother} style={{ marginTop: '6px' }}>
             Send another
           </button>
         </div>
+      )}
+      {/* Shown once the envelope has flown but the request is still on its way (slow connections). */}
+      {status === 'sending' && !animating && (
+        <p
+          role="status"
+          style={
+            canAnimate
+              ? { position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', margin: 0, color: 'var(--color-neutral-300)' }
+              : { margin: '12px 0 0', color: 'var(--color-neutral-300)' }
+          }
+        >
+          Sending…
+        </p>
       )}
       <div
         ref={foldRef}
