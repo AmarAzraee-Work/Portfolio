@@ -1,0 +1,25 @@
+# `docker compose up`                          → dev server on http://localhost:5173 (live reload)
+# `docker compose --profile prod up --build`   → production build served by Nginx on http://localhost:8080
+# Phase 2 will add Laravel (api) and MySQL (db) services to this file.
+services:
+  web:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app # your code, mounted live into the container
+      - /app/node_modules # keep the container's own Linux node_modules instead of your Mac's
+    environment:
+      VITE_USE_POLLING: "true" # file change events don't always cross the macOS → Linux mount
+
+  web-prod:
+    profiles: ["prod"]
+    build:
+      context: .
+      target: prod
+      args:
+        VITE_CONTACT_ENDPOINT: ${VITE_CONTACT_ENDPOINT:-}
+    ports:
+      - "8080:80"

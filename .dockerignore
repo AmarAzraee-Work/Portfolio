@@ -1,0 +1,12 @@
+# Files Docker never sends to the build (smaller, faster, no secrets in images).
+node_modules
+dist
+.git
+.env
+.env.*
+!.env.example
+docs
+.superpowers
+.claude
+coverage
+*.log
