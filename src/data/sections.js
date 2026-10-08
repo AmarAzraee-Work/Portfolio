@@ -1,7 +1,7 @@
 // Fixed copy for each face of the cube (headings and intros from the design).
 export const sections = {
   labels: ['Home', 'Work', 'About', 'Experience', 'Contact'],
-  home: { eyebrow: 'Full-stack developer', scrollHint: 'Scroll or drag to turn the cube' },
+  home: { eyebrow: 'Ready to Work', scrollHint: 'Scroll or drag to turn the cube' },
   work: {
     eyebrow: 'Selected work',
     heading: "Things I've built",
